@@ -70,7 +70,7 @@
   - 優先順位を設定
   - ユーザーストーリーを `aidlc-docs/inception/user_stories.md` に作成
 
-- [ ] 8. ストーリーマッピングを作成する
+- [x] 8. ストーリーマッピングを作成する
   - ユーザージャーニーに沿った機能の流れを可視化
   - MVP（最小実用製品）の範囲を定義
   - ストーリーマップを `aidlc-docs/inception/story_mapping.md` に作成
