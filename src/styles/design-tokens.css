@@ -1,0 +1,276 @@
+/**
+ * ラーメン貯金 - デザイントークン
+ *
+ * このファイルにはアプリケーション全体で使用されるデザインシステムの
+ * CSS変数が定義されています。
+ *
+ * カラーパレット: "Golden Achievement"
+ * コンセプト: 達成感、ポジティブ、エンターテインメント
+ */
+
+:root {
+  /* ========================================
+   * カラーパレット
+   * ======================================== */
+
+  /* プライマリーカラー（ゴールド/アンバー系） */
+  --primary-gold: #F59E0B;        /* Amber 500 - 達成感、報酬、メイン */
+  --primary-gold-light: #FCD34D;  /* Amber 300 - ハイライト */
+  --primary-gold-dark: #D97706;   /* Amber 600 - 押下状態 */
+
+  /* セカンダリーカラー（ティール系） */
+  --secondary-teal: #14B8A6;      /* Teal 500 - フレッシュ、ポジティブ */
+  --secondary-teal-light: #5EEAD4; /* Teal 300 - 背景 */
+
+  /* アクセントカラー */
+  --accent-orange: #F97316;       /* Orange 500 - CTAボタン */
+  --accent-pink: #EC4899;         /* Pink 500 - お祝いモーメント */
+
+  /* ニュートラルカラー */
+  --neutral-900: #18181B;         /* Zinc 900 - メインテキスト */
+  --neutral-700: #3F3F46;         /* Zinc 700 - サブテキスト */
+  --neutral-500: #71717A;         /* Zinc 500 - プレースホルダー */
+  --neutral-300: #D4D4D8;         /* Zinc 300 - ボーダー（無効） */
+  --neutral-200: #E4E4E7;         /* Zinc 200 - ボーダー */
+  --neutral-100: #F4F4F5;         /* Zinc 100 - 背景 */
+  --neutral-50: #FAFAFA;          /* Zinc 50 - 背景（薄い） */
+  --white: #FFFFFF;
+
+  /* セマンティックカラー */
+  --success: #22C55E;             /* Green 500 - 成功メッセージ */
+  --error: #EF4444;               /* Red 500 - エラー */
+  --warning: #F59E0B;             /* Amber 500 - 警告 */
+  --info: #3B82F6;                /* Blue 500 - 情報 */
+
+  /* グラデーション */
+  --gradient-success: linear-gradient(135deg, #F59E0B 0%, #F97316 100%);
+  --gradient-background: linear-gradient(180deg, #FFFBEB 0%, #FFFFFF 100%);
+  --gradient-celebration: linear-gradient(135deg, #F59E0B 0%, #EC4899 100%);
+
+  /* 背景色 */
+  --bg-primary: var(--white);
+  --bg-secondary: var(--neutral-50);
+  --bg-tertiary: var(--neutral-100);
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+
+  /* テキストカラー */
+  --text-primary: var(--neutral-900);
+  --text-secondary: var(--neutral-700);
+  --text-tertiary: var(--neutral-500);
+  --text-inverse: var(--white);
+  --text-link: var(--primary-gold);
+  --text-success: var(--success);
+  --text-error: var(--error);
+
+  /* ボーダーカラー */
+  --border-primary: var(--neutral-200);
+  --border-secondary: var(--neutral-300);
+  --border-focus: var(--primary-gold);
+  --border-error: var(--error);
+
+  /* ========================================
+   * タイポグラフィ
+   * ======================================== */
+
+  /* フォントファミリー */
+  --font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont,
+                 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
+                 'Yu Gothic', YuGothic, Meiryo, sans-serif;
+
+  /* フォントウェイト */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  /* フォントサイズ */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 32px;
+  --font-size-4xl: 40px;
+  --font-size-5xl: 48px;
+  --font-size-6xl: 56px;
+  --font-size-7xl: 64px;
+  --font-size-8xl: 72px;
+
+  /* 行間 */
+  --line-height-tight: 1.1;
+  --line-height-snug: 1.2;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.6;
+  --line-height-loose: 1.8;
+
+  /* レター・スペーシング */
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+
+  /* ========================================
+   * スペーシング
+   * ======================================== */
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 80px;
+  --space-5xl: 96px;
+
+  /* ========================================
+   * ボーダー半径
+   * ======================================== */
+
+  --radius-sm: 4px;          /* 入力フィールド */
+  --radius-md: 8px;          /* カード */
+  --radius-lg: 16px;         /* モーダル */
+  --radius-xl: 24px;         /* プライマリーボタン */
+  --radius-2xl: 32px;        /* 大きな要素 */
+  --radius-full: 9999px;     /* 円形要素 */
+
+  /* ========================================
+   * シャドウ
+   * ======================================== */
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.15);
+
+  /* フォーカスシャドウ */
+  --shadow-focus: 0 0 0 3px rgba(245, 158, 11, 0.3);
+
+  /* ========================================
+   * z-index
+   * ======================================== */
+
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+
+  /* ========================================
+   * トランジション
+   * ======================================== */
+
+  /* デュレーション */
+  --transition-fast: 150ms;
+  --transition-base: 250ms;
+  --transition-slow: 350ms;
+  --transition-slower: 500ms;
+
+  /* イージング */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ========================================
+   * ブレイクポイント
+   * ======================================== */
+
+  --breakpoint-xs: 375px;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* ========================================
+   * レイアウト
+   * ======================================== */
+
+  /* 最大幅 */
+  --max-width-xs: 320px;
+  --max-width-sm: 384px;
+  --max-width-md: 448px;
+  --max-width-lg: 512px;
+  --max-width-xl: 576px;
+  --max-width-2xl: 672px;
+  --max-width-app: 600px;  /* アプリのメインコンテンツ幅 */
+
+  /* タッチターゲットサイズ */
+  --touch-target-min-mobile: 44px;   /* iOS最小推奨 */
+  --touch-target-min-tablet: 48px;   /* Material Design推奨 */
+  --touch-target-min-desktop: 40px;  /* デスクトップ */
+
+  /* ========================================
+   * アニメーション
+   * ======================================== */
+
+  /* ボタン押下 */
+  --animation-button-press: scale(0.95);
+
+  /* モーダル表示 */
+  --animation-modal-enter-scale: 0.8;
+  --animation-modal-enter-duration: var(--transition-slow);
+
+  /* 数値カウントアップ */
+  --animation-count-duration: var(--transition-slower);
+}
+
+/* ========================================
+ * ダークモード（Phase 3）
+ * ======================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* ダークモード用のカラーオーバーライド */
+    /* Phase 3 で実装予定 */
+
+    /* 例:
+    --bg-primary: #18181B;
+    --bg-secondary: #27272A;
+    --text-primary: #F4F4F5;
+    --primary-gold: #FCD34D;
+    */
+  }
+}
+
+/* ========================================
+ * ユーティリティクラス
+ * ======================================== */
+
+/* 数字のモノスペースフォント（金額表示用） */
+.font-tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* グラデーションテキスト */
+.text-gradient-gold {
+  background: var(--gradient-success);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* フォーカススタイル */
+.focus-ring:focus-visible {
+  outline: 3px solid var(--primary-gold);
+  outline-offset: 2px;
+}
+
+/* スクリーンリーダー専用 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
