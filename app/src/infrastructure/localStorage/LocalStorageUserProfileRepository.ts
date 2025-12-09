@@ -13,6 +13,11 @@ import type { IUserProfileRepository } from '@/domain/repositories/IUserProfileR
 const STORAGE_KEY = 'ramen-saver:user-profile'
 const DEFAULT_RAMEN_PRICE = 800
 
+// エラーメッセージ定数
+const ERROR_MESSAGES = {
+  INVALID_RAMEN_PRICE: 'Ramen price must be a positive number',
+} as const
+
 /**
  * LocalStorageを使用したユーザープロフィールリポジトリ
  */
@@ -21,14 +26,19 @@ export class LocalStorageUserProfileRepository implements IUserProfileRepository
    * LocalStorageからプロフィールを取得
    */
   private getProfile(): UserProfile | null {
-    const json = localStorage.getItem(STORAGE_KEY)
-    if (!json) return null
+    try {
+      const json = localStorage.getItem(STORAGE_KEY)
+      if (!json) return null
 
-    const data = JSON.parse(json)
-    return {
-      ...data,
-      createdAt: new Date(data.createdAt),
-      updatedAt: new Date(data.updatedAt),
+      const data = JSON.parse(json)
+      return {
+        ...data,
+        createdAt: new Date(data.createdAt),
+        updatedAt: new Date(data.updatedAt),
+      }
+    } catch (error) {
+      console.error('Failed to parse user profile from localStorage:', error)
+      return null
     }
   }
 
@@ -56,7 +66,7 @@ export class LocalStorageUserProfileRepository implements IUserProfileRepository
   async update(input: UpdateUserProfileInput): Promise<UserProfile> {
     // 入力値検証
     if (!Number.isFinite(input.ramenPrice) || input.ramenPrice < 0) {
-      throw new Error('Ramen price must be a positive number')
+      throw new Error(ERROR_MESSAGES.INVALID_RAMEN_PRICE)
     }
 
     const profile = await this.get()

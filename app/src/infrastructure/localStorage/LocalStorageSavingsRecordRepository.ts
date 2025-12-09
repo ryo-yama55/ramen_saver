@@ -13,6 +13,13 @@ import type { ISavingsRecordRepository } from '@/domain/repositories/ISavingsRec
 
 const STORAGE_KEY = 'ramen-saver:savings-records'
 
+// エラーメッセージ定数
+const ERROR_MESSAGES = {
+  INVALID_AMOUNT: 'Amount must be a positive number',
+  INVALID_OFFSET: 'Offset must be a non-negative number',
+  INVALID_LIMIT: 'Limit must be a non-negative number',
+} as const
+
 /**
  * LocalStorageを使用した貯金記録リポジトリ
  */
@@ -21,15 +28,27 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
    * LocalStorageから記録を取得
    */
   private getRecords(): SavingsRecord[] {
-    const json = localStorage.getItem(STORAGE_KEY)
-    if (!json) return []
+    try {
+      const json = localStorage.getItem(STORAGE_KEY)
+      if (!json) return []
 
-    const data = JSON.parse(json)
-    // Date型に変換
-    return data.map((record: any) => ({
-      ...record,
-      recordedAt: new Date(record.recordedAt),
-    }))
+      const data = JSON.parse(json)
+
+      // 配列でない場合は空配列を返す
+      if (!Array.isArray(data)) {
+        console.warn('Invalid data format in localStorage')
+        return []
+      }
+
+      // Date型に変換
+      return data.map((record: any) => ({
+        ...record,
+        recordedAt: new Date(record.recordedAt),
+      }))
+    } catch (error) {
+      console.error('Failed to parse savings records from localStorage:', error)
+      return []
+    }
   }
 
   /**
@@ -43,6 +62,14 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
    * 記録を全件取得
    */
   async findAll(filters?: SavingsRecordFilters): Promise<SavingsRecord[]> {
+    // ページネーションパラメータの検証
+    if (filters?.offset !== undefined && filters.offset < 0) {
+      throw new Error(ERROR_MESSAGES.INVALID_OFFSET)
+    }
+    if (filters?.limit !== undefined && filters.limit < 0) {
+      throw new Error(ERROR_MESSAGES.INVALID_LIMIT)
+    }
+
     let records = this.getRecords().filter((r) => !r.isDeleted)
 
     // フィルタリング
@@ -80,7 +107,7 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
   async create(input: CreateSavingsRecordInput): Promise<SavingsRecord> {
     // 入力値検証
     if (!Number.isFinite(input.amount) || input.amount < 0) {
-      throw new Error('Amount must be a positive number')
+      throw new Error(ERROR_MESSAGES.INVALID_AMOUNT)
     }
 
     const records = this.getRecords()

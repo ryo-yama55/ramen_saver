@@ -6,6 +6,7 @@ describe('LocalStorageSavingsRecordRepository', () => {
   let repository: LocalStorageSavingsRecordRepository
 
   beforeEach(() => {
+    localStorage.clear()
     repository = new LocalStorageSavingsRecordRepository()
   })
 
@@ -183,6 +184,22 @@ describe('LocalStorageSavingsRecordRepository', () => {
     })
   })
 
+  describe('findAll - 異常系', () => {
+    it('offsetが負の値の場合はエラーを投げる', async () => {
+      // Act & Assert
+      await expect(repository.findAll({ offset: -1 })).rejects.toThrow(
+        'Offset must be a non-negative number'
+      )
+    })
+
+    it('limitが負の値の場合はエラーを投げる', async () => {
+      // Act & Assert
+      await expect(repository.findAll({ limit: -1 })).rejects.toThrow(
+        'Limit must be a non-negative number'
+      )
+    })
+  })
+
   describe('findById - 正常系', () => {
     it('存在しないIDの場合はnullを返す', async () => {
       // Act
@@ -348,12 +365,15 @@ describe('LocalStorageSavingsRecordRepository', () => {
   })
 
   describe('getRecords - データ整合性', () => {
-    it('壊れたJSONの場合はエラーを投げる', () => {
+    it('壊れたJSONの場合は空配列を返す', () => {
       // Arrange
       localStorage.setItem('ramen-saver:savings-records', 'invalid-json{')
 
-      // Act & Assert
-      expect(() => repository['getRecords']()).toThrow()
+      // Act
+      const records = repository['getRecords']()
+
+      // Assert
+      expect(records).toEqual([])
     })
 
     it('不正な日付文字列でもDateオブジェクトに変換される', () => {

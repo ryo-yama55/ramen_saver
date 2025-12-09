@@ -6,6 +6,7 @@ describe('LocalStorageUserProfileRepository', () => {
   let repository: LocalStorageUserProfileRepository
 
   beforeEach(() => {
+    localStorage.clear()
     repository = new LocalStorageUserProfileRepository()
   })
 
@@ -185,12 +186,15 @@ describe('LocalStorageUserProfileRepository', () => {
   })
 
   describe('getProfile - データ整合性', () => {
-    it('壊れたJSONの場合はエラーを投げる', () => {
+    it('壊れたJSONの場合はnullを返す', () => {
       // Arrange
       localStorage.setItem('ramen-saver:user-profile', 'invalid-json{')
 
-      // Act & Assert
-      expect(() => repository['getProfile']()).toThrow()
+      // Act
+      const profile = repository['getProfile']()
+
+      // Assert
+      expect(profile).toBeNull()
     })
 
     it('不正な日付文字列でもDateオブジェクトに変換される', () => {
