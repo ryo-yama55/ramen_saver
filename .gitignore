@@ -3,10 +3,12 @@
 .AppleDouble
 .LSOverride
 
-# Claude Code
-.claude/
+# Claude Code (kiri and serena are local cache)
 .kiri/
 .serena/
+
+# Exclude .claude in subdirectories, but allow root .claude
+app/.claude/
 
 # IDEs
 .vscode/
