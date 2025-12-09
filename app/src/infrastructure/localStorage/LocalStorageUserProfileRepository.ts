@@ -8,15 +8,23 @@ import type {
   UserProfile,
   UpdateUserProfileInput,
 } from '@/domain/entities/UserProfile'
+import { DEFAULT_RAMEN_PRICE } from '@/domain/entities/UserProfile'
 import type { IUserProfileRepository } from '@/domain/repositories/IUserProfileRepository'
 
 const STORAGE_KEY = 'ramen-saver:user-profile'
-const DEFAULT_RAMEN_PRICE = 800
 
 // エラーメッセージ定数
 const ERROR_MESSAGES = {
   INVALID_RAMEN_PRICE: 'Ramen price must be a positive number',
 } as const
+
+/**
+ * LocalStorageに保存されるユーザープロフィールの型
+ */
+type StoredUserProfile = Omit<UserProfile, 'createdAt' | 'updatedAt'> & {
+  createdAt: string // ISO8601形式の文字列
+  updatedAt: string // ISO8601形式の文字列
+}
 
 /**
  * LocalStorageを使用したユーザープロフィールリポジトリ
@@ -30,11 +38,21 @@ export class LocalStorageUserProfileRepository implements IUserProfileRepository
       const json = localStorage.getItem(STORAGE_KEY)
       if (!json) return null
 
-      const data = JSON.parse(json)
+      const data = JSON.parse(json) as StoredUserProfile
+      const createdAt = new Date(data.createdAt)
+      const updatedAt = new Date(data.updatedAt)
+
+      if (isNaN(createdAt.getTime())) {
+        console.warn(`Invalid createdAt date for profile ${data.id}: ${data.createdAt}`)
+      }
+      if (isNaN(updatedAt.getTime())) {
+        console.warn(`Invalid updatedAt date for profile ${data.id}: ${data.updatedAt}`)
+      }
+
       return {
         ...data,
-        createdAt: new Date(data.createdAt),
-        updatedAt: new Date(data.updatedAt),
+        createdAt,
+        updatedAt,
       }
     } catch (error) {
       console.error('Failed to parse user profile from localStorage:', error)
@@ -46,7 +64,12 @@ export class LocalStorageUserProfileRepository implements IUserProfileRepository
    * LocalStorageにプロフィールを保存
    */
   private saveProfile(profile: UserProfile): void {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(profile))
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(profile))
+    } catch (error) {
+      console.error('Failed to save profile to localStorage:', error)
+      throw new Error('Failed to persist user profile')
+    }
   }
 
   /**

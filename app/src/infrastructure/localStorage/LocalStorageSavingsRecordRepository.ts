@@ -21,6 +21,13 @@ const ERROR_MESSAGES = {
 } as const
 
 /**
+ * LocalStorageに保存される貯金記録の型
+ */
+type StoredSavingsRecord = Omit<SavingsRecord, 'recordedAt'> & {
+  recordedAt: string // ISO8601形式の文字列
+}
+
+/**
  * LocalStorageを使用した貯金記録リポジトリ
  */
 export class LocalStorageSavingsRecordRepository implements ISavingsRecordRepository {
@@ -41,10 +48,16 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
       }
 
       // Date型に変換
-      return data.map((record: any) => ({
-        ...record,
-        recordedAt: new Date(record.recordedAt),
-      }))
+      return (data as StoredSavingsRecord[]).map((record) => {
+        const date = new Date(record.recordedAt)
+        if (isNaN(date.getTime())) {
+          console.warn(`Invalid date for record ${record.id}: ${record.recordedAt}`)
+        }
+        return {
+          ...record,
+          recordedAt: date,
+        }
+      })
     } catch (error) {
       console.error('Failed to parse savings records from localStorage:', error)
       return []
@@ -55,7 +68,12 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
    * LocalStorageに記録を保存
    */
   private saveRecords(records: SavingsRecord[]): void {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(records))
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(records))
+    } catch (error) {
+      console.error('Failed to save records to localStorage:', error)
+      throw new Error('Failed to persist savings records')
+    }
   }
 
   /**

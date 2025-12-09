@@ -28,3 +28,8 @@ export type UpdateUserProfileInput = {
   /** 新しいラーメン価格 */
   ramenPrice: number
 }
+
+/**
+ * デフォルトのラーメン価格（円）
+ */
+export const DEFAULT_RAMEN_PRICE = 800 as const
