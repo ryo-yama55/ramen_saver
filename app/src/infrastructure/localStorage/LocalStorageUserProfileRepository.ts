@@ -54,6 +54,11 @@ export class LocalStorageUserProfileRepository implements IUserProfileRepository
    * プロフィールを更新
    */
   async update(input: UpdateUserProfileInput): Promise<UserProfile> {
+    // 入力値検証
+    if (!Number.isFinite(input.ramenPrice) || input.ramenPrice < 0) {
+      throw new Error('Ramen price must be a positive number')
+    }
+
     const profile = await this.get()
 
     const updated: UserProfile = {

@@ -57,11 +57,10 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
     records.sort((a, b) => b.recordedAt.getTime() - a.recordedAt.getTime())
 
     // ページング
-    if (filters?.offset !== undefined) {
-      records = records.slice(filters.offset)
-    }
-    if (filters?.limit !== undefined) {
-      records = records.slice(0, filters.limit)
+    if (filters?.offset !== undefined || filters?.limit !== undefined) {
+      const start = filters.offset ?? 0
+      const end = filters.limit !== undefined ? start + filters.limit : undefined
+      records = records.slice(start, end)
     }
 
     return records
@@ -79,6 +78,11 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
    * 新規記録を作成
    */
   async create(input: CreateSavingsRecordInput): Promise<SavingsRecord> {
+    // 入力値検証
+    if (!Number.isFinite(input.amount) || input.amount < 0) {
+      throw new Error('Amount must be a positive number')
+    }
+
     const records = this.getRecords()
 
     const newRecord: SavingsRecord = {
@@ -111,7 +115,7 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
    * 総貯金額を計算
    */
   async getTotalSavings(): Promise<number> {
-    const records = await this.findAll()
+    const records = this.getRecords().filter((r) => !r.isDeleted)
     return records.reduce((sum, record) => sum + record.amount, 0)
   }
 
@@ -122,7 +126,10 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
     const startDate = new Date(year, month - 1, 1)
     const endDate = new Date(year, month, 0, 23, 59, 59, 999)
 
-    const records = await this.findAll({ startDate, endDate })
+    const records = this.getRecords()
+      .filter((r) => !r.isDeleted)
+      .filter((r) => r.recordedAt >= startDate && r.recordedAt <= endDate)
+
     return records.reduce((sum, record) => sum + record.amount, 0)
   }
 
@@ -130,7 +137,7 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
    * 累計貯金回数を取得
    */
   async getTotalCount(): Promise<number> {
-    const records = await this.findAll()
+    const records = this.getRecords().filter((r) => !r.isDeleted)
     return records.length
   }
 }
