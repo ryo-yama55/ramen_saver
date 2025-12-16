@@ -1,18 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from '@storybook/test'
 import { HomePage } from './HomePage'
 
 // Mock use cases
 const mockGetTotalSavingsUseCase = {
-  execute: fn().mockResolvedValue(5000),
+  execute: async () => 5000,
 }
 
 const mockGetMonthlySavingsUseCase = {
-  execute: fn().mockResolvedValue(2000),
+  execute: async () => 2000,
 }
 
 const mockSaveRamenResistanceUseCase = {
-  execute: fn().mockResolvedValue({
+  execute: async () => ({
     id: 'test-id',
     amount: 800,
     recordedAt: new Date(),
@@ -43,10 +42,10 @@ export const Default: Story = {
 export const NoSavings: Story = {
   args: {
     getTotalSavingsUseCase: {
-      execute: fn().mockResolvedValue(0),
+      execute: async () => 0,
     } as any,
     getMonthlySavingsUseCase: {
-      execute: fn().mockResolvedValue(0),
+      execute: async () => 0,
     } as any,
     saveRamenResistanceUseCase: mockSaveRamenResistanceUseCase as any,
   },
@@ -55,10 +54,10 @@ export const NoSavings: Story = {
 export const HighSavings: Story = {
   args: {
     getTotalSavingsUseCase: {
-      execute: fn().mockResolvedValue(123456),
+      execute: async () => 123456,
     } as any,
     getMonthlySavingsUseCase: {
-      execute: fn().mockResolvedValue(45678),
+      execute: async () => 45678,
     } as any,
     saveRamenResistanceUseCase: mockSaveRamenResistanceUseCase as any,
   },

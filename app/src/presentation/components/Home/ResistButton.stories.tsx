@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { fn } from '@storybook/test'
 import { ResistButton } from './ResistButton'
 
 const meta = {
@@ -10,7 +9,7 @@ const meta = {
   },
   tags: ['autodocs'],
   args: {
-    onClick: fn(),
+    onClick: () => {},
   },
 } satisfies Meta<typeof ResistButton>
 
