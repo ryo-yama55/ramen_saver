@@ -4,19 +4,13 @@
  * 総貯金額と今月の貯金額を表示する
  */
 
+import { formatCurrency } from '@/presentation/utils/currency'
+
 export type SavingsDisplayProps = {
   /** 総貯金額（円） */
   totalSavings: number
   /** 今月の貯金額（円） */
   monthlySavings: number
-}
-
-/**
- * 金額をカンマ区切りの文字列にフォーマット
- */
-const formatCurrency = (amount: number): string => {
-  const safeAmount = Math.max(0, amount)
-  return `${safeAmount.toLocaleString('ja-JP')}円`
 }
 
 /**
