@@ -31,9 +31,10 @@ class LocalStorageMock {
   }
 }
 
-global.localStorage = new LocalStorageMock() as Storage
+// Use globalThis for compatibility with both Node and browser environments
+globalThis.localStorage = new LocalStorageMock() as Storage
 
 // Clear localStorage before each test
 beforeEach(() => {
-  global.localStorage.clear()
+  globalThis.localStorage.clear()
 })
