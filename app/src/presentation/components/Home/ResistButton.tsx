@@ -33,7 +33,7 @@ export const ResistButton = ({
         ${
           isDisabled
             ? 'bg-gray-400 text-gray-100 cursor-not-allowed opacity-50'
-            : 'bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 active:scale-95 shadow-lg hover:shadow-xl'
+            : 'bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 active:scale-95 shadow-lg hover:shadow-xl'
         }
       `}
     >

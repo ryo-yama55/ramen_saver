@@ -75,7 +75,7 @@ export const HomePage = ({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white p-6">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white p-6">
       <div className="max-w-md mx-auto space-y-8">
         {/* ヘッダー */}
         <header className="text-center pt-8">
