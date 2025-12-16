@@ -4,7 +4,7 @@
  * ラーメン我慢アプリのメインページ
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import type { GetTotalSavingsUseCase } from '@/application/usecases/GetTotalSavingsUseCase'
 import type { GetMonthlySavingsUseCase } from '@/application/usecases/GetMonthlySavingsUseCase'
 import type { SaveRamenResistanceUseCase } from '@/application/usecases/SaveRamenResistanceUseCase'
@@ -33,7 +33,7 @@ export const HomePage = ({
   const [savedAmount, setSavedAmount] = useState(0)
 
   // 初期データ取得
-  const fetchSavings = async () => {
+  const fetchSavings = useCallback(async () => {
     try {
       const [total, monthly] = await Promise.all([
         getTotalSavingsUseCase.execute(),
@@ -46,11 +46,11 @@ export const HomePage = ({
       setTotalSavings(0)
       setMonthlySavings(0)
     }
-  }
+  }, [getTotalSavingsUseCase, getMonthlySavingsUseCase])
 
   useEffect(() => {
     fetchSavings()
-  }, [])
+  }, [fetchSavings])
 
   // 我慢ボタンクリックハンドラ
   const handleResist = async () => {
@@ -62,17 +62,23 @@ export const HomePage = ({
 
       // 貯金額を再取得
       await fetchSavings()
-
-      // 3秒後に成功メッセージを非表示
-      setTimeout(() => {
-        setShowSuccess(false)
-      }, 3000)
     } catch (error) {
       console.error('Failed to save resistance:', error)
     } finally {
       setIsSaving(false)
     }
   }
+
+  // 成功メッセージを3秒後に非表示にする
+  useEffect(() => {
+    if (showSuccess) {
+      const timer = setTimeout(() => {
+        setShowSuccess(false)
+      }, 3000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [showSuccess])
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white p-6">
