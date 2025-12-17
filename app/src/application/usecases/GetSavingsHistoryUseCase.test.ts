@@ -60,7 +60,7 @@ describe('GetSavingsHistoryUseCase', () => {
       let capturedLimit: number | undefined
       let capturedOffset: number | undefined
 
-      mockSavingsRepo.findAll = async (filters) => {
+      mockSavingsRepo.findAll = async filters => {
         capturedLimit = filters?.limit
         capturedOffset = filters?.offset
         return []
@@ -81,7 +81,7 @@ describe('GetSavingsHistoryUseCase', () => {
       let capturedStartDate: Date | undefined
       let capturedEndDate: Date | undefined
 
-      mockSavingsRepo.findAll = async (filters) => {
+      mockSavingsRepo.findAll = async filters => {
         capturedStartDate = filters?.startDate
         capturedEndDate = filters?.endDate
         return []

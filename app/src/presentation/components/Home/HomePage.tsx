@@ -109,10 +109,7 @@ export const HomePage = ({
 
         {/* 貯金額表示 */}
         <div className="bg-white rounded-lg shadow-lg p-6">
-          <SavingsDisplay
-            totalSavings={totalSavings}
-            monthlySavings={monthlySavings}
-          />
+          <SavingsDisplay totalSavings={totalSavings} monthlySavings={monthlySavings} />
         </div>
 
         {/* 成功メッセージ */}

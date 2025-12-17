@@ -21,29 +21,22 @@ import { InitializeUserProfileUseCase } from '@/application/usecases/InitializeU
 export const savingsRecordRepository: ISavingsRecordRepository =
   new LocalStorageSavingsRecordRepository()
 
-export const userProfileRepository: IUserProfileRepository =
-  new LocalStorageUserProfileRepository()
+export const userProfileRepository: IUserProfileRepository = new LocalStorageUserProfileRepository()
 
 // ============================================================
 // UseCases
 // ============================================================
 
-export const getTotalSavingsUseCase = new GetTotalSavingsUseCase(
-  savingsRecordRepository,
-)
+export const getTotalSavingsUseCase = new GetTotalSavingsUseCase(savingsRecordRepository)
 
-export const getMonthlySavingsUseCase = new GetMonthlySavingsUseCase(
-  savingsRecordRepository,
-)
+export const getMonthlySavingsUseCase = new GetMonthlySavingsUseCase(savingsRecordRepository)
 
 export const saveRamenResistanceUseCase = new SaveRamenResistanceUseCase(
   savingsRecordRepository,
-  userProfileRepository,
+  userProfileRepository
 )
 
-export const initializeUserProfileUseCase = new InitializeUserProfileUseCase(
-  userProfileRepository,
-)
+export const initializeUserProfileUseCase = new InitializeUserProfileUseCase(userProfileRepository)
 
 // ============================================================
 // Phase 3: Supabase実装に切り替える場合

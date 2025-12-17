@@ -16,11 +16,7 @@ export type ResistButtonProps = {
 /**
  * ラーメン我慢ボタンコンポーネント
  */
-export const ResistButton = ({
-  onClick,
-  disabled = false,
-  loading = false,
-}: ResistButtonProps) => {
+export const ResistButton = ({ onClick, disabled = false, loading = false }: ResistButtonProps) => {
   const isDisabled = disabled || loading
 
   return (

@@ -307,10 +307,7 @@ describe('LocalStorageSavingsRecordRepository', () => {
 
       // Act
       const now = new Date()
-      const total = await repository.getMonthlySavings(
-        now.getFullYear(),
-        now.getMonth() + 1
-      )
+      const total = await repository.getMonthlySavings(now.getFullYear(), now.getMonth() + 1)
 
       // Assert
       expect(total).toBe(1600)
@@ -378,9 +375,10 @@ describe('LocalStorageSavingsRecordRepository', () => {
 
     it('不正な日付文字列でもDateオブジェクトに変換される', () => {
       // Arrange
-      localStorage.setItem('ramen-saver:savings-records', JSON.stringify([
-        { id: '1', amount: 800, recordedAt: 'not-a-date', isDeleted: false }
-      ]))
+      localStorage.setItem(
+        'ramen-saver:savings-records',
+        JSON.stringify([{ id: '1', amount: 800, recordedAt: 'not-a-date', isDeleted: false }])
+      )
 
       // Act
       const records = repository['getRecords']()

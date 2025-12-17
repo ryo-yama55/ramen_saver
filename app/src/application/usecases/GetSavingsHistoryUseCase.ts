@@ -5,18 +5,13 @@
  */
 
 import type { ISavingsRecordRepository } from '@/domain/repositories/ISavingsRecordRepository'
-import type {
-  SavingsRecord,
-  SavingsRecordFilters,
-} from '@/domain/entities/SavingsRecord'
+import type { SavingsRecord, SavingsRecordFilters } from '@/domain/entities/SavingsRecord'
 
 /**
  * 貯金履歴取得ユースケース
  */
 export class GetSavingsHistoryUseCase {
-  constructor(
-    private readonly savingsRecordRepository: ISavingsRecordRepository,
-  ) {}
+  constructor(private readonly savingsRecordRepository: ISavingsRecordRepository) {}
 
   /**
    * ユースケースを実行

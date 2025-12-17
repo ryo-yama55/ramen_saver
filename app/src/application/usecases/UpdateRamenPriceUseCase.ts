@@ -19,9 +19,7 @@ export type UpdateRamenPriceInput = {
  * ラーメン価格更新ユースケース
  */
 export class UpdateRamenPriceUseCase {
-  constructor(
-    private readonly userProfileRepository: IUserProfileRepository,
-  ) {}
+  constructor(private readonly userProfileRepository: IUserProfileRepository) {}
 
   /**
    * ユースケースを実行

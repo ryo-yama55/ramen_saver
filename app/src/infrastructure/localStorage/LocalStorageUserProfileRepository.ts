@@ -4,10 +4,7 @@
  * LocalStorageを使用してデータを永続化する実装
  */
 
-import type {
-  UserProfile,
-  UpdateUserProfileInput,
-} from '@/domain/entities/UserProfile'
+import type { UserProfile, UpdateUserProfileInput } from '@/domain/entities/UserProfile'
 import { DEFAULT_RAMEN_PRICE } from '@/domain/entities/UserProfile'
 import type { IUserProfileRepository } from '@/domain/repositories/IUserProfileRepository'
 
