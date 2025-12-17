@@ -41,3 +41,7 @@ build/
 # Temporary files
 *.tmp
 *.temp
+
+# Screenshots (not tracked in git)
+screenshots/
+docs/screenshots/
