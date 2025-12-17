@@ -9,27 +9,27 @@
  */
 export type UserProfile = {
   /** ユーザーID（UUID） */
-  id: string
+  id: string;
 
   /** ラーメン価格（円） */
-  ramenPrice: number
+  ramenPrice: number;
 
   /** 作成日時 */
-  createdAt: Date
+  createdAt: Date;
 
   /** 更新日時 */
-  updatedAt: Date
-}
+  updatedAt: Date;
+};
 
 /**
  * プロフィール更新時の入力
  */
 export type UpdateUserProfileInput = {
   /** 新しいラーメン価格 */
-  ramenPrice: number
-}
+  ramenPrice: number;
+};
 
 /**
  * デフォルトのラーメン価格（円）
  */
-export const DEFAULT_RAMEN_PRICE = 800 as const
+export const DEFAULT_RAMEN_PRICE = 800 as const;

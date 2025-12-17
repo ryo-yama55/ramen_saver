@@ -5,45 +5,45 @@
  * 他のコード（hooks、components等）は一切変更不要
  */
 
-import type { ISavingsRecordRepository } from '@/domain/repositories/ISavingsRecordRepository'
-import type { IUserProfileRepository } from '@/domain/repositories/IUserProfileRepository'
-import { LocalStorageSavingsRecordRepository } from '@/infrastructure/localStorage/LocalStorageSavingsRecordRepository'
-import { LocalStorageUserProfileRepository } from '@/infrastructure/localStorage/LocalStorageUserProfileRepository'
-import { GetTotalSavingsUseCase } from '@/application/usecases/GetTotalSavingsUseCase'
-import { GetMonthlySavingsUseCase } from '@/application/usecases/GetMonthlySavingsUseCase'
-import { SaveRamenResistanceUseCase } from '@/application/usecases/SaveRamenResistanceUseCase'
-import { InitializeUserProfileUseCase } from '@/application/usecases/InitializeUserProfileUseCase'
+import type { ISavingsRecordRepository } from '@/domain/repositories/ISavingsRecordRepository';
+import type { IUserProfileRepository } from '@/domain/repositories/IUserProfileRepository';
+import { LocalStorageSavingsRecordRepository } from '@/infrastructure/localStorage/LocalStorageSavingsRecordRepository';
+import { LocalStorageUserProfileRepository } from '@/infrastructure/localStorage/LocalStorageUserProfileRepository';
+import { GetTotalSavingsUseCase } from '@/application/usecases/GetTotalSavingsUseCase';
+import { GetMonthlySavingsUseCase } from '@/application/usecases/GetMonthlySavingsUseCase';
+import { SaveRamenResistanceUseCase } from '@/application/usecases/SaveRamenResistanceUseCase';
+import { InitializeUserProfileUseCase } from '@/application/usecases/InitializeUserProfileUseCase';
 
 // ============================================================
 // Phase 1-2: LocalStorage実装を使用
 // ============================================================
 
 export const savingsRecordRepository: ISavingsRecordRepository =
-  new LocalStorageSavingsRecordRepository()
+  new LocalStorageSavingsRecordRepository();
 
 export const userProfileRepository: IUserProfileRepository =
-  new LocalStorageUserProfileRepository()
+  new LocalStorageUserProfileRepository();
 
 // ============================================================
 // UseCases
 // ============================================================
 
 export const getTotalSavingsUseCase = new GetTotalSavingsUseCase(
-  savingsRecordRepository,
-)
+  savingsRecordRepository
+);
 
 export const getMonthlySavingsUseCase = new GetMonthlySavingsUseCase(
-  savingsRecordRepository,
-)
+  savingsRecordRepository
+);
 
 export const saveRamenResistanceUseCase = new SaveRamenResistanceUseCase(
   savingsRecordRepository,
-  userProfileRepository,
-)
+  userProfileRepository
+);
 
 export const initializeUserProfileUseCase = new InitializeUserProfileUseCase(
-  userProfileRepository,
-)
+  userProfileRepository
+);
 
 // ============================================================
 // Phase 3: Supabase実装に切り替える場合

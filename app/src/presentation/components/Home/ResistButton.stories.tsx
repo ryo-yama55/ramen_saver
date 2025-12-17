@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { ResistButton } from './ResistButton'
+import type { Meta, StoryObj } from '@storybook/react';
+import { ResistButton } from './ResistButton';
 
 const meta = {
   title: 'Home/ResistButton',
@@ -11,28 +11,28 @@ const meta = {
   args: {
     onClick: () => {},
   },
-} satisfies Meta<typeof ResistButton>
+} satisfies Meta<typeof ResistButton>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
     disabled: false,
     loading: false,
   },
-}
+};
 
 export const Disabled: Story = {
   args: {
     disabled: true,
     loading: false,
   },
-}
+};
 
 export const Loading: Story = {
   args: {
     disabled: false,
     loading: true,
   },
-}
+};

@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { HomePage } from './HomePage'
+import type { Meta, StoryObj } from '@storybook/react';
+import { HomePage } from './HomePage';
 
 // Mock use cases
 const mockGetTotalSavingsUseCase = {
   execute: async () => 5000,
-}
+};
 
 const mockGetMonthlySavingsUseCase = {
   execute: async () => 2000,
-}
+};
 
 const mockSaveRamenResistanceUseCase = {
   execute: async () => ({
@@ -17,7 +17,7 @@ const mockSaveRamenResistanceUseCase = {
     recordedAt: new Date(),
     isDeleted: false,
   }),
-}
+};
 
 const meta = {
   title: 'Home/HomePage',
@@ -26,10 +26,10 @@ const meta = {
     layout: 'fullscreen',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof HomePage>
+} satisfies Meta<typeof HomePage>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
@@ -37,7 +37,7 @@ export const Default: Story = {
     getMonthlySavingsUseCase: mockGetMonthlySavingsUseCase as any,
     saveRamenResistanceUseCase: mockSaveRamenResistanceUseCase as any,
   },
-}
+};
 
 export const NoSavings: Story = {
   args: {
@@ -49,7 +49,7 @@ export const NoSavings: Story = {
     } as any,
     saveRamenResistanceUseCase: mockSaveRamenResistanceUseCase as any,
   },
-}
+};
 
 export const HighSavings: Story = {
   args: {
@@ -61,4 +61,4 @@ export const HighSavings: Story = {
     } as any,
     saveRamenResistanceUseCase: mockSaveRamenResistanceUseCase as any,
   },
-}
+};

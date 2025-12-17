@@ -14,6 +14,6 @@
  * formatCurrency(-100) // "0円" (負の値は0として扱う)
  */
 export const formatCurrency = (amount: number): string => {
-  const safeAmount = Math.max(0, amount)
-  return `${safeAmount.toLocaleString('ja-JP')}円`
-}
+  const safeAmount = Math.max(0, amount);
+  return `${safeAmount.toLocaleString('ja-JP')}円`;
+};

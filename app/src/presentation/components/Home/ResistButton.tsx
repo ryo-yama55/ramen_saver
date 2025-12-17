@@ -6,12 +6,12 @@
 
 export type ResistButtonProps = {
   /** クリックハンドラ */
-  onClick: () => void
+  onClick: () => void;
   /** ボタンの無効状態 */
-  disabled?: boolean
+  disabled?: boolean;
   /** ローディング状態 */
-  loading?: boolean
-}
+  loading?: boolean;
+};
 
 /**
  * ラーメン我慢ボタンコンポーネント
@@ -21,7 +21,7 @@ export const ResistButton = ({
   disabled = false,
   loading = false,
 }: ResistButtonProps) => {
-  const isDisabled = disabled || loading
+  const isDisabled = disabled || loading;
 
   return (
     <button
@@ -39,5 +39,5 @@ export const ResistButton = ({
     >
       {loading ? '保存中...' : '我慢した!'}
     </button>
-  )
-}
+  );
+};

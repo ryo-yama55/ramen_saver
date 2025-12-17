@@ -4,22 +4,22 @@
  * ラーメン我慢アプリのメインページ
  */
 
-import { useState, useEffect, useCallback } from 'react'
-import type { GetTotalSavingsUseCase } from '@/application/usecases/GetTotalSavingsUseCase'
-import type { GetMonthlySavingsUseCase } from '@/application/usecases/GetMonthlySavingsUseCase'
-import type { SaveRamenResistanceUseCase } from '@/application/usecases/SaveRamenResistanceUseCase'
-import { SavingsDisplay } from './SavingsDisplay'
-import { ResistButton } from './ResistButton'
-import { SuccessMessage } from './SuccessMessage'
+import { useState, useEffect, useCallback } from 'react';
+import type { GetTotalSavingsUseCase } from '@/application/usecases/GetTotalSavingsUseCase';
+import type { GetMonthlySavingsUseCase } from '@/application/usecases/GetMonthlySavingsUseCase';
+import type { SaveRamenResistanceUseCase } from '@/application/usecases/SaveRamenResistanceUseCase';
+import { SavingsDisplay } from './SavingsDisplay';
+import { ResistButton } from './ResistButton';
+import { SuccessMessage } from './SuccessMessage';
 
 /** 成功メッセージの表示時間（ミリ秒） */
-const SUCCESS_MESSAGE_DURATION = 3000
+const SUCCESS_MESSAGE_DURATION = 3000;
 
 export type HomePageProps = {
-  getTotalSavingsUseCase: GetTotalSavingsUseCase
-  getMonthlySavingsUseCase: GetMonthlySavingsUseCase
-  saveRamenResistanceUseCase: SaveRamenResistanceUseCase
-}
+  getTotalSavingsUseCase: GetTotalSavingsUseCase;
+  getMonthlySavingsUseCase: GetMonthlySavingsUseCase;
+  saveRamenResistanceUseCase: SaveRamenResistanceUseCase;
+};
 
 /**
  * ホームページコンポーネント
@@ -29,12 +29,12 @@ export const HomePage = ({
   getMonthlySavingsUseCase,
   saveRamenResistanceUseCase,
 }: HomePageProps) => {
-  const [totalSavings, setTotalSavings] = useState(0)
-  const [monthlySavings, setMonthlySavings] = useState(0)
-  const [isSaving, setIsSaving] = useState(false)
-  const [showSuccess, setShowSuccess] = useState(false)
-  const [savedAmount, setSavedAmount] = useState(0)
-  const [error, setError] = useState<string | null>(null)
+  const [totalSavings, setTotalSavings] = useState(0);
+  const [monthlySavings, setMonthlySavings] = useState(0);
+  const [isSaving, setIsSaving] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [savedAmount, setSavedAmount] = useState(0);
+  const [error, setError] = useState<string | null>(null);
 
   // 初期データ取得
   const fetchSavings = useCallback(async () => {
@@ -42,54 +42,54 @@ export const HomePage = ({
       const [total, monthly] = await Promise.all([
         getTotalSavingsUseCase.execute(),
         getMonthlySavingsUseCase.execute(),
-      ])
-      setTotalSavings(total)
-      setMonthlySavings(monthly)
-      setError(null)
+      ]);
+      setTotalSavings(total);
+      setMonthlySavings(monthly);
+      setError(null);
     } catch (error) {
-      console.error('Failed to fetch savings:', error)
-      setError('データの取得に失敗しました')
-      setTotalSavings(0)
-      setMonthlySavings(0)
+      console.error('Failed to fetch savings:', error);
+      setError('データの取得に失敗しました');
+      setTotalSavings(0);
+      setMonthlySavings(0);
     }
-  }, [getTotalSavingsUseCase, getMonthlySavingsUseCase])
+  }, [getTotalSavingsUseCase, getMonthlySavingsUseCase]);
 
   useEffect(() => {
-    fetchSavings()
-  }, [fetchSavings])
+    fetchSavings();
+  }, [fetchSavings]);
 
   // 我慢ボタンクリックハンドラ
   const handleResist = async () => {
     // 連続クリック防止
-    if (isSaving) return
+    if (isSaving) return;
 
-    setIsSaving(true)
-    setError(null)
+    setIsSaving(true);
+    setError(null);
     try {
-      const record = await saveRamenResistanceUseCase.execute()
-      setSavedAmount(record.amount)
-      setShowSuccess(true)
+      const record = await saveRamenResistanceUseCase.execute();
+      setSavedAmount(record.amount);
+      setShowSuccess(true);
 
       // 貯金額を再取得
-      await fetchSavings()
+      await fetchSavings();
     } catch (error) {
-      console.error('Failed to save resistance:', error)
-      setError('保存に失敗しました')
+      console.error('Failed to save resistance:', error);
+      setError('保存に失敗しました');
     } finally {
-      setIsSaving(false)
+      setIsSaving(false);
     }
-  }
+  };
 
   // 成功メッセージを一定時間後に非表示にする
   useEffect(() => {
     if (showSuccess) {
       const timer = setTimeout(() => {
-        setShowSuccess(false)
-      }, SUCCESS_MESSAGE_DURATION)
+        setShowSuccess(false);
+      }, SUCCESS_MESSAGE_DURATION);
 
-      return () => clearTimeout(timer)
+      return () => clearTimeout(timer);
     }
-  }, [showSuccess])
+  }, [showSuccess]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white p-6">
@@ -122,5 +122,5 @@ export const HomePage = ({
         <ResistButton onClick={handleResist} loading={isSaving} />
       </div>
     </div>
-  )
-}
+  );
+};

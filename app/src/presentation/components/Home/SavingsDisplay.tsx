@@ -4,14 +4,14 @@
  * 総貯金額と今月の貯金額を表示する
  */
 
-import { formatCurrency } from '@/presentation/utils/currency'
+import { formatCurrency } from '@/presentation/utils/currency';
 
 export type SavingsDisplayProps = {
   /** 総貯金額（円） */
-  totalSavings: number
+  totalSavings: number;
   /** 今月の貯金額（円） */
-  monthlySavings: number
-}
+  monthlySavings: number;
+};
 
 /**
  * 貯金額表示コンポーネント
@@ -38,5 +38,5 @@ export const SavingsDisplay = ({
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
