@@ -12,6 +12,7 @@ import { LocalStorageUserProfileRepository } from '@/infrastructure/localStorage
 import { GetTotalSavingsUseCase } from '@/application/usecases/GetTotalSavingsUseCase'
 import { GetMonthlySavingsUseCase } from '@/application/usecases/GetMonthlySavingsUseCase'
 import { SaveRamenResistanceUseCase } from '@/application/usecases/SaveRamenResistanceUseCase'
+import { InitializeUserProfileUseCase } from '@/application/usecases/InitializeUserProfileUseCase'
 
 // ============================================================
 // Phase 1-2: LocalStorage実装を使用
@@ -37,6 +38,10 @@ export const getMonthlySavingsUseCase = new GetMonthlySavingsUseCase(
 
 export const saveRamenResistanceUseCase = new SaveRamenResistanceUseCase(
   savingsRecordRepository,
+  userProfileRepository,
+)
+
+export const initializeUserProfileUseCase = new InitializeUserProfileUseCase(
   userProfileRepository,
 )
 
