@@ -1,9 +1,9 @@
-import { HomePage } from './presentation/components/Home/HomePage';
+import { HomePage } from './presentation/components/Home/HomePage'
 import {
   getTotalSavingsUseCase,
   getMonthlySavingsUseCase,
   saveRamenResistanceUseCase,
-} from './application/di/container';
+} from './application/di/container'
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       getMonthlySavingsUseCase={getMonthlySavingsUseCase}
       saveRamenResistanceUseCase={saveRamenResistanceUseCase}
     />
-  );
+  )
 }
 
-export default App;
+export default App

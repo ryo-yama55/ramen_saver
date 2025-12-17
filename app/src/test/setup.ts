@@ -1,40 +1,40 @@
-import '@testing-library/jest-dom';
-import { beforeEach } from 'vitest';
+import '@testing-library/jest-dom'
+import { beforeEach } from 'vitest'
 
 // Setup localStorage mock
 class LocalStorageMock {
-  private store: Map<string, string> = new Map();
+  private store: Map<string, string> = new Map()
 
   getItem(key: string): string | null {
-    return this.store.get(key) ?? null;
+    return this.store.get(key) ?? null
   }
 
   setItem(key: string, value: string): void {
-    this.store.set(key, value);
+    this.store.set(key, value)
   }
 
   removeItem(key: string): void {
-    this.store.delete(key);
+    this.store.delete(key)
   }
 
   clear(): void {
-    this.store.clear();
+    this.store.clear()
   }
 
   get length(): number {
-    return this.store.size;
+    return this.store.size
   }
 
   key(index: number): string | null {
-    const keys = Array.from(this.store.keys());
-    return keys[index] ?? null;
+    const keys = Array.from(this.store.keys())
+    return keys[index] ?? null
   }
 }
 
 // Use globalThis for compatibility with both Node and browser environments
-globalThis.localStorage = new LocalStorageMock() as Storage;
+globalThis.localStorage = new LocalStorageMock() as Storage
 
 // Clear localStorage before each test
 beforeEach(() => {
-  globalThis.localStorage.clear();
-});
+  globalThis.localStorage.clear()
+})

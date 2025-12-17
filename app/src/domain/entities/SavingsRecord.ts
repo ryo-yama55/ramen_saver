@@ -9,39 +9,39 @@
  */
 export type SavingsRecord = {
   /** 記録ID（UUID） */
-  id: string;
+  id: string
 
   /** 節約額（その時点のラーメン価格） */
-  amount: number;
+  amount: number
 
   /** 記録日時 */
-  recordedAt: Date;
+  recordedAt: Date
 
   /** 論理削除フラグ */
-  isDeleted: boolean;
-};
+  isDeleted: boolean
+}
 
 /**
  * 貯金記録作成時の入力
  */
 export type CreateSavingsRecordInput = {
   /** 節約額 */
-  amount: number;
-};
+  amount: number
+}
 
 /**
  * 貯金記録のフィルタ条件
  */
 export type SavingsRecordFilters = {
   /** 開始日時（この日時以降の記録を取得） */
-  startDate?: Date;
+  startDate?: Date
 
   /** 終了日時（この日時以前の記録を取得） */
-  endDate?: Date;
+  endDate?: Date
 
   /** 取得件数の上限 */
-  limit?: number;
+  limit?: number
 
   /** スキップする件数（ページング用） */
-  offset?: number;
-};
+  offset?: number
+}

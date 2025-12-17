@@ -5,10 +5,7 @@
  * 実装はインフラ層で行う（LocalStorage、Supabase等）
  */
 
-import type {
-  UserProfile,
-  UpdateUserProfileInput,
-} from '../entities/UserProfile';
+import type { UserProfile, UpdateUserProfileInput } from '../entities/UserProfile'
 
 /**
  * ユーザープロフィールリポジトリのインターフェース
@@ -19,7 +16,7 @@ export interface IUserProfileRepository {
    *
    * @returns プロフィールが存在する場合true
    */
-  exists(): Promise<boolean>;
+  exists(): Promise<boolean>
 
   /**
    * プロフィールを取得
@@ -28,7 +25,7 @@ export interface IUserProfileRepository {
    *
    * @returns ユーザープロフィール
    */
-  get(): Promise<UserProfile>;
+  get(): Promise<UserProfile>
 
   /**
    * プロフィールを更新
@@ -36,7 +33,7 @@ export interface IUserProfileRepository {
    * @param input - 更新する情報
    * @returns 更新されたユーザープロフィール
    */
-  update(input: UpdateUserProfileInput): Promise<UserProfile>;
+  update(input: UpdateUserProfileInput): Promise<UserProfile>
 
   /**
    * プロフィールを初期化
@@ -44,5 +41,5 @@ export interface IUserProfileRepository {
    * @param ramenPrice - 初期ラーメン価格（デフォルト: 800円）
    * @returns 初期化されたユーザープロフィール
    */
-  initialize(ramenPrice?: number): Promise<UserProfile>;
+  initialize(ramenPrice?: number): Promise<UserProfile>
 }

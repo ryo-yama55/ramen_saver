@@ -4,19 +4,14 @@
  * 貯金記録の履歴を取得する
  */
 
-import type { ISavingsRecordRepository } from '@/domain/repositories/ISavingsRecordRepository';
-import type {
-  SavingsRecord,
-  SavingsRecordFilters,
-} from '@/domain/entities/SavingsRecord';
+import type { ISavingsRecordRepository } from '@/domain/repositories/ISavingsRecordRepository'
+import type { SavingsRecord, SavingsRecordFilters } from '@/domain/entities/SavingsRecord'
 
 /**
  * 貯金履歴取得ユースケース
  */
 export class GetSavingsHistoryUseCase {
-  constructor(
-    private readonly savingsRecordRepository: ISavingsRecordRepository
-  ) {}
+  constructor(private readonly savingsRecordRepository: ISavingsRecordRepository) {}
 
   /**
    * ユースケースを実行
@@ -25,6 +20,6 @@ export class GetSavingsHistoryUseCase {
    * @returns 貯金記録の配列
    */
   async execute(filters?: SavingsRecordFilters): Promise<SavingsRecord[]> {
-    return await this.savingsRecordRepository.findAll(filters);
+    return await this.savingsRecordRepository.findAll(filters)
   }
 }
