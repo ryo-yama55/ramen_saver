@@ -12,6 +12,9 @@ import { SavingsDisplay } from './SavingsDisplay'
 import { ResistButton } from './ResistButton'
 import { SuccessMessage } from './SuccessMessage'
 
+/** 成功メッセージの表示時間（ミリ秒） */
+const SUCCESS_MESSAGE_DURATION = 3000
+
 export type HomePageProps = {
   getTotalSavingsUseCase: GetTotalSavingsUseCase
   getMonthlySavingsUseCase: GetMonthlySavingsUseCase
@@ -31,6 +34,7 @@ export const HomePage = ({
   const [isSaving, setIsSaving] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [savedAmount, setSavedAmount] = useState(0)
+  const [error, setError] = useState<string | null>(null)
 
   // 初期データ取得
   const fetchSavings = useCallback(async () => {
@@ -41,8 +45,10 @@ export const HomePage = ({
       ])
       setTotalSavings(total)
       setMonthlySavings(monthly)
+      setError(null)
     } catch (error) {
       console.error('Failed to fetch savings:', error)
+      setError('データの取得に失敗しました')
       setTotalSavings(0)
       setMonthlySavings(0)
     }
@@ -54,7 +60,11 @@ export const HomePage = ({
 
   // 我慢ボタンクリックハンドラ
   const handleResist = async () => {
+    // 連続クリック防止
+    if (isSaving) return
+
     setIsSaving(true)
+    setError(null)
     try {
       const record = await saveRamenResistanceUseCase.execute()
       setSavedAmount(record.amount)
@@ -64,17 +74,18 @@ export const HomePage = ({
       await fetchSavings()
     } catch (error) {
       console.error('Failed to save resistance:', error)
+      setError('保存に失敗しました')
     } finally {
       setIsSaving(false)
     }
   }
 
-  // 成功メッセージを3秒後に非表示にする
+  // 成功メッセージを一定時間後に非表示にする
   useEffect(() => {
     if (showSuccess) {
       const timer = setTimeout(() => {
         setShowSuccess(false)
-      }, 3000)
+      }, SUCCESS_MESSAGE_DURATION)
 
       return () => clearTimeout(timer)
     }
@@ -88,6 +99,13 @@ export const HomePage = ({
           <h1 className="text-3xl font-bold text-gray-800">ラーメン貯金</h1>
           <p className="text-gray-600 mt-2">我慢して貯金しよう!</p>
         </header>
+
+        {/* エラーメッセージ */}
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-center">
+            <p className="text-sm">{error}</p>
+          </div>
+        )}
 
         {/* 貯金額表示 */}
         <div className="bg-white rounded-lg shadow-lg p-6">
