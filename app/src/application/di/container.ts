@@ -9,6 +9,9 @@ import type { ISavingsRecordRepository } from '@/domain/repositories/ISavingsRec
 import type { IUserProfileRepository } from '@/domain/repositories/IUserProfileRepository'
 import { LocalStorageSavingsRecordRepository } from '@/infrastructure/localStorage/LocalStorageSavingsRecordRepository'
 import { LocalStorageUserProfileRepository } from '@/infrastructure/localStorage/LocalStorageUserProfileRepository'
+import { GetTotalSavingsUseCase } from '@/application/usecases/GetTotalSavingsUseCase'
+import { GetMonthlySavingsUseCase } from '@/application/usecases/GetMonthlySavingsUseCase'
+import { SaveRamenResistanceUseCase } from '@/application/usecases/SaveRamenResistanceUseCase'
 
 // ============================================================
 // Phase 1-2: LocalStorage実装を使用
@@ -19,6 +22,23 @@ export const savingsRecordRepository: ISavingsRecordRepository =
 
 export const userProfileRepository: IUserProfileRepository =
   new LocalStorageUserProfileRepository()
+
+// ============================================================
+// UseCases
+// ============================================================
+
+export const getTotalSavingsUseCase = new GetTotalSavingsUseCase(
+  savingsRecordRepository,
+)
+
+export const getMonthlySavingsUseCase = new GetMonthlySavingsUseCase(
+  savingsRecordRepository,
+)
+
+export const saveRamenResistanceUseCase = new SaveRamenResistanceUseCase(
+  savingsRecordRepository,
+  userProfileRepository,
+)
 
 // ============================================================
 // Phase 3: Supabase実装に切り替える場合
