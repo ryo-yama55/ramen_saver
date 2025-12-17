@@ -73,6 +73,14 @@ export class LocalStorageUserProfileRepository implements IUserProfileRepository
   }
 
   /**
+   * プロフィールが存在するか確認
+   */
+  async exists(): Promise<boolean> {
+    const profile = this.getProfile()
+    return profile !== null
+  }
+
+  /**
    * プロフィールを取得
    */
   async get(): Promise<UserProfile> {

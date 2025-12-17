@@ -12,6 +12,13 @@ import type { UserProfile, UpdateUserProfileInput } from '../entities/UserProfil
  */
 export interface IUserProfileRepository {
   /**
+   * プロフィールが存在するか確認
+   *
+   * @returns プロフィールが存在する場合true
+   */
+  exists(): Promise<boolean>
+
+  /**
    * プロフィールを取得
    *
    * プロフィールが存在しない場合は自動的に初期化する
