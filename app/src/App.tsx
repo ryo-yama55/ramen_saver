@@ -14,8 +14,14 @@ function App() {
 
   useEffect(() => {
     const checkProfile = async () => {
-      const exists = await userProfileRepository.exists()
-      setIsOnboardingComplete(exists)
+      try {
+        const exists = await userProfileRepository.exists()
+        setIsOnboardingComplete(exists)
+      } catch (error) {
+        console.error('Failed to check profile:', error)
+        // エラー時は初回ユーザーとして扱う
+        setIsOnboardingComplete(false)
+      }
     }
     checkProfile()
   }, [])

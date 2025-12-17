@@ -18,6 +18,8 @@ export type RamenPriceSetupProps = {
   defaultPrice?: number
   /** 「完了」ボタンがクリックされたときのコールバック */
   onComplete: (price: number) => void
+  /** 外部から渡されるエラーメッセージ（保存失敗時など） */
+  externalError?: string | null
 }
 
 /**
@@ -26,20 +28,27 @@ export type RamenPriceSetupProps = {
 export const RamenPriceSetup = ({
   defaultPrice = DEFAULT_RAMEN_PRICE,
   onComplete,
+  externalError = null,
 }: RamenPriceSetupProps) => {
   const [price, setPrice] = useState<string>(defaultPrice.toString())
   const [error, setError] = useState<string | null>(null)
+
+  // 外部エラーまたは内部エラーを表示
+  const displayError = externalError || error
 
   const handlePriceChange = (value: string) => {
     // 数字のみ許可
     if (value === '' || /^\d+$/.test(value)) {
       setPrice(value)
-      setError(null)
+      // 入力が空でない場合のみエラーをクリア
+      if (value !== '') {
+        setError(null)
+      }
     }
   }
 
   const handleComplete = () => {
-    const priceNum = parseInt(price, 10)
+    const priceNum = Number(price)
 
     // バリデーション
     if (price === '' || isNaN(priceNum)) {
@@ -89,6 +98,9 @@ export const RamenPriceSetup = ({
                 inputMode="numeric"
                 value={price}
                 onChange={(e) => handlePriceChange(e.target.value)}
+                aria-label="ラーメンの価格"
+                aria-invalid={!!displayError}
+                aria-describedby={displayError ? 'price-error' : undefined}
                 className="w-full px-4 py-3 text-2xl font-bold text-center border-2 border-gray-300 rounded-lg focus:border-amber-500 focus:outline-none"
                 placeholder="800"
               />
@@ -99,9 +111,13 @@ export const RamenPriceSetup = ({
           </div>
 
           {/* エラーメッセージ */}
-          {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm">
-              {error}
+          {displayError && (
+            <div
+              id="price-error"
+              role="alert"
+              className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm"
+            >
+              {displayError}
             </div>
           )}
 

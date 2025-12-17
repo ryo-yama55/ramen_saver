@@ -27,13 +27,16 @@ export const OnboardingFlow = ({
 }: OnboardingFlowProps) => {
   const [currentStep, setCurrentStep] = useState<OnboardingStep>('welcome')
   const [isProcessing, setIsProcessing] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
 
   const handleWelcomeStart = () => {
     setCurrentStep('ramen-price-setup')
+    setSaveError(null)
   }
 
   const handlePriceSetupComplete = async (price: number) => {
     setIsProcessing(true)
+    setSaveError(null)
     try {
       // ユーザープロフィールを初期化
       await initializeUserProfileUseCase.execute({ ramenPrice: price })
@@ -41,7 +44,7 @@ export const OnboardingFlow = ({
       onComplete()
     } catch (error) {
       console.error('Failed to initialize user profile:', error)
-      // エラー処理は今後追加
+      setSaveError('設定の保存に失敗しました。もう一度お試しください。')
     } finally {
       setIsProcessing(false)
     }
@@ -63,7 +66,12 @@ export const OnboardingFlow = ({
   }
 
   if (currentStep === 'ramen-price-setup') {
-    return <RamenPriceSetup onComplete={handlePriceSetupComplete} />
+    return (
+      <RamenPriceSetup
+        onComplete={handlePriceSetupComplete}
+        externalError={saveError}
+      />
+    )
   }
 
   return null
