@@ -6,20 +6,22 @@ const useStore = create(
     (set, get) => ({
       // オンボーディング状態
       isOnboarded: false,
-      setIsOnboarded: (value) => set({ isOnboarded: value }),
+      setIsOnboarded: value => set({ isOnboarded: value }),
 
       // ラーメン価格
       ramenPrice: 800,
-      setRamenPrice: (price) => set({ ramenPrice: price }),
+      setRamenPrice: price => set({ ramenPrice: price }),
 
       // 我慢記録
       records: [],
-      addRecord: (record) => set((state) => ({
-        records: [...state.records, record]
-      })),
-      deleteRecord: (id) => set((state) => ({
-        records: state.records.filter((record) => record.id !== id)
-      })),
+      addRecord: record =>
+        set(state => ({
+          records: [...state.records, record],
+        })),
+      deleteRecord: id =>
+        set(state => ({
+          records: state.records.filter(record => record.id !== id),
+        })),
 
       // 計算されたデータ
       getTotalSavings: () => {
@@ -33,11 +35,10 @@ const useStore = create(
         const currentYear = now.getFullYear()
 
         return records
-          .filter((record) => {
+          .filter(record => {
             const recordDate = new Date(record.date)
             return (
-              recordDate.getMonth() === currentMonth &&
-              recordDate.getFullYear() === currentYear
+              recordDate.getMonth() === currentMonth && recordDate.getFullYear() === currentYear
             )
           })
           .reduce((total, record) => total + record.amount, 0)
@@ -49,14 +50,11 @@ const useStore = create(
         const currentMonth = now.getMonth()
         const currentYear = now.getFullYear()
 
-        return records.filter((record) => {
+        return records.filter(record => {
           const recordDate = new Date(record.date)
-          return (
-            recordDate.getMonth() === currentMonth &&
-            recordDate.getFullYear() === currentYear
-          )
+          return recordDate.getMonth() === currentMonth && recordDate.getFullYear() === currentYear
         }).length
-      }
+      },
     }),
     {
       name: 'ramen-saver-storage', // localStorageのキー名

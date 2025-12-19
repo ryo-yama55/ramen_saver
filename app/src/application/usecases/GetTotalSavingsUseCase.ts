@@ -10,9 +10,7 @@ import type { ISavingsRecordRepository } from '@/domain/repositories/ISavingsRec
  * 総貯金額取得ユースケース
  */
 export class GetTotalSavingsUseCase {
-  constructor(
-    private readonly savingsRecordRepository: ISavingsRecordRepository,
-  ) {}
+  constructor(private readonly savingsRecordRepository: ISavingsRecordRepository) {}
 
   /**
    * ユースケースを実行

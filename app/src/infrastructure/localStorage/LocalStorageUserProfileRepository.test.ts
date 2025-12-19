@@ -114,7 +114,9 @@ describe('LocalStorageUserProfileRepository', () => {
       const input: UpdateUserProfileInput = { ramenPrice: -100 }
 
       // Act & Assert
-      await expect(repository.update(input)).rejects.toThrow('Ramen price must be a positive number')
+      await expect(repository.update(input)).rejects.toThrow(
+        'Ramen price must be a positive number'
+      )
     })
 
     it('NaNが渡された場合はエラーを投げる', async () => {
@@ -122,7 +124,9 @@ describe('LocalStorageUserProfileRepository', () => {
       const input: UpdateUserProfileInput = { ramenPrice: NaN }
 
       // Act & Assert
-      await expect(repository.update(input)).rejects.toThrow('Ramen price must be a positive number')
+      await expect(repository.update(input)).rejects.toThrow(
+        'Ramen price must be a positive number'
+      )
     })
 
     it('Infinityが渡された場合はエラーを投げる', async () => {
@@ -130,7 +134,9 @@ describe('LocalStorageUserProfileRepository', () => {
       const input: UpdateUserProfileInput = { ramenPrice: Infinity }
 
       // Act & Assert
-      await expect(repository.update(input)).rejects.toThrow('Ramen price must be a positive number')
+      await expect(repository.update(input)).rejects.toThrow(
+        'Ramen price must be a positive number'
+      )
     })
   })
 
@@ -199,12 +205,15 @@ describe('LocalStorageUserProfileRepository', () => {
 
     it('不正な日付文字列でもDateオブジェクトに変換される', () => {
       // Arrange
-      localStorage.setItem('ramen-saver:user-profile', JSON.stringify({
-        id: '1',
-        ramenPrice: 800,
-        createdAt: 'not-a-date',
-        updatedAt: 'not-a-date'
-      }))
+      localStorage.setItem(
+        'ramen-saver:user-profile',
+        JSON.stringify({
+          id: '1',
+          ramenPrice: 800,
+          createdAt: 'not-a-date',
+          updatedAt: 'not-a-date',
+        })
+      )
 
       // Act
       const profile = repository['getProfile']()

@@ -35,7 +35,7 @@ describe('InitializeUserProfileUseCase', () => {
   describe('execute - 正常系', () => {
     it('デフォルト価格でプロフィールを初期化できる', async () => {
       // Arrange
-      mockProfileRepo.initialize = async (ramenPrice) => ({
+      mockProfileRepo.initialize = async ramenPrice => ({
         id: 'test-id',
         ramenPrice: ramenPrice ?? 800,
         createdAt: new Date(),
@@ -54,7 +54,7 @@ describe('InitializeUserProfileUseCase', () => {
       // Arrange
       let capturedPrice: number | undefined
 
-      mockProfileRepo.initialize = async (ramenPrice) => {
+      mockProfileRepo.initialize = async ramenPrice => {
         capturedPrice = ramenPrice
         return {
           id: 'test-id',
@@ -74,7 +74,7 @@ describe('InitializeUserProfileUseCase', () => {
 
     it('0円で初期化できる', async () => {
       // Arrange
-      mockProfileRepo.initialize = async (ramenPrice) => ({
+      mockProfileRepo.initialize = async ramenPrice => ({
         id: 'test-id',
         ramenPrice: ramenPrice ?? 800,
         createdAt: new Date(),
@@ -97,9 +97,7 @@ describe('InitializeUserProfileUseCase', () => {
       }
 
       // Act & Assert
-      await expect(useCase.execute()).rejects.toThrow(
-        'Failed to initialize profile'
-      )
+      await expect(useCase.execute()).rejects.toThrow('Failed to initialize profile')
     })
   })
 })

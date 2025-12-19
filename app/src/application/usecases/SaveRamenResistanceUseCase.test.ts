@@ -61,7 +61,7 @@ describe('SaveRamenResistanceUseCase', () => {
       // Arrange
       let capturedAmount: number | undefined
 
-      mockSavingsRepo.create = async (input) => {
+      mockSavingsRepo.create = async input => {
         capturedAmount = input.amount
         return {
           id: 'test-id',

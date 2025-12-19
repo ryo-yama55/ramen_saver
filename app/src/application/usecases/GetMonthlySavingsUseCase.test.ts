@@ -81,9 +81,7 @@ describe('GetMonthlySavingsUseCase', () => {
       }
 
       // Act & Assert
-      await expect(useCase.execute()).rejects.toThrow(
-        'Failed to get monthly savings'
-      )
+      await expect(useCase.execute()).rejects.toThrow('Failed to get monthly savings')
     })
   })
 })

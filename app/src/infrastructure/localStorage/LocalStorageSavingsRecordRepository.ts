@@ -48,7 +48,7 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
       }
 
       // Date型に変換
-      return (data as StoredSavingsRecord[]).map((record) => {
+      return (data as StoredSavingsRecord[]).map(record => {
         const date = new Date(record.recordedAt)
         if (isNaN(date.getTime())) {
           console.warn(`Invalid date for record ${record.id}: ${record.recordedAt}`)
@@ -88,14 +88,14 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
       throw new Error(ERROR_MESSAGES.INVALID_LIMIT)
     }
 
-    let records = this.getRecords().filter((r) => !r.isDeleted)
+    let records = this.getRecords().filter(r => !r.isDeleted)
 
     // フィルタリング
     if (filters?.startDate) {
-      records = records.filter((r) => r.recordedAt >= filters.startDate!)
+      records = records.filter(r => r.recordedAt >= filters.startDate!)
     }
     if (filters?.endDate) {
-      records = records.filter((r) => r.recordedAt <= filters.endDate!)
+      records = records.filter(r => r.recordedAt <= filters.endDate!)
     }
 
     // ソート（新しい順）
@@ -116,7 +116,7 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
    */
   async findById(id: string): Promise<SavingsRecord | null> {
     const records = this.getRecords()
-    return records.find((r) => r.id === id && !r.isDeleted) || null
+    return records.find(r => r.id === id && !r.isDeleted) || null
   }
 
   /**
@@ -148,7 +148,7 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
    */
   async delete(id: string): Promise<void> {
     const records = this.getRecords()
-    const record = records.find((r) => r.id === id)
+    const record = records.find(r => r.id === id)
 
     if (record) {
       record.isDeleted = true
@@ -160,7 +160,7 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
    * 総貯金額を計算
    */
   async getTotalSavings(): Promise<number> {
-    const records = this.getRecords().filter((r) => !r.isDeleted)
+    const records = this.getRecords().filter(r => !r.isDeleted)
     return records.reduce((sum, record) => sum + record.amount, 0)
   }
 
@@ -172,8 +172,8 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
     const endDate = new Date(year, month, 0, 23, 59, 59, 999)
 
     const records = this.getRecords()
-      .filter((r) => !r.isDeleted)
-      .filter((r) => r.recordedAt >= startDate && r.recordedAt <= endDate)
+      .filter(r => !r.isDeleted)
+      .filter(r => r.recordedAt >= startDate && r.recordedAt <= endDate)
 
     return records.reduce((sum, record) => sum + record.amount, 0)
   }
@@ -182,7 +182,7 @@ export class LocalStorageSavingsRecordRepository implements ISavingsRecordReposi
    * 累計貯金回数を取得
    */
   async getTotalCount(): Promise<number> {
-    const records = this.getRecords().filter((r) => !r.isDeleted)
+    const records = this.getRecords().filter(r => !r.isDeleted)
     return records.length
   }
 }

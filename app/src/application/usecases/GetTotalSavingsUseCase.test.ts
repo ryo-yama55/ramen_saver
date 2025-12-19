@@ -57,9 +57,7 @@ describe('GetTotalSavingsUseCase', () => {
       }
 
       // Act & Assert
-      await expect(useCase.execute()).rejects.toThrow(
-        'Failed to get total savings'
-      )
+      await expect(useCase.execute()).rejects.toThrow('Failed to get total savings')
     })
   })
 })

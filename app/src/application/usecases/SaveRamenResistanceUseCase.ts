@@ -14,7 +14,7 @@ import type { SavingsRecord } from '@/domain/entities/SavingsRecord'
 export class SaveRamenResistanceUseCase {
   constructor(
     private readonly savingsRecordRepository: ISavingsRecordRepository,
-    private readonly userProfileRepository: IUserProfileRepository,
+    private readonly userProfileRepository: IUserProfileRepository
   ) {}
 
   /**

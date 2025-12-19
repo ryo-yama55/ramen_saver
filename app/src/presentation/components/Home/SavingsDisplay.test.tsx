@@ -23,7 +23,7 @@ describe('SavingsDisplay', () => {
 
       const amounts = screen.getAllByText('0円')
       expect(amounts).toHaveLength(2)
-      amounts.forEach((amount) => {
+      amounts.forEach(amount => {
         expect(amount).toBeInTheDocument()
       })
     })

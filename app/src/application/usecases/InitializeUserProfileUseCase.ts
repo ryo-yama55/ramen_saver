@@ -19,9 +19,7 @@ export type InitializeUserProfileInput = {
  * ユーザープロフィール初期化ユースケース
  */
 export class InitializeUserProfileUseCase {
-  constructor(
-    private readonly userProfileRepository: IUserProfileRepository,
-  ) {}
+  constructor(private readonly userProfileRepository: IUserProfileRepository) {}
 
   /**
    * ユースケースを実行

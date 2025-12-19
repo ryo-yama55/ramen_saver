@@ -20,9 +20,7 @@ export type GetMonthlySavingsInput = {
  * 月間貯金額取得ユースケース
  */
 export class GetMonthlySavingsUseCase {
-  constructor(
-    private readonly savingsRecordRepository: ISavingsRecordRepository,
-  ) {}
+  constructor(private readonly savingsRecordRepository: ISavingsRecordRepository) {}
 
   /**
    * ユースケースを実行

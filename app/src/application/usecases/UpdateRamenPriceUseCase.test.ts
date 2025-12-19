@@ -27,7 +27,7 @@ describe('UpdateRamenPriceUseCase', () => {
   describe('execute - 正常系', () => {
     it('ラーメン価格を更新できる', async () => {
       // Arrange
-      mockProfileRepo.update = async (input) => ({
+      mockProfileRepo.update = async input => ({
         id: 'test-profile-id',
         ramenPrice: input.ramenPrice,
         createdAt: new Date(),
@@ -43,7 +43,7 @@ describe('UpdateRamenPriceUseCase', () => {
 
     it('0円で更新できる', async () => {
       // Arrange
-      mockProfileRepo.update = async (input) => ({
+      mockProfileRepo.update = async input => ({
         id: 'test-profile-id',
         ramenPrice: input.ramenPrice,
         createdAt: new Date(),
@@ -66,9 +66,7 @@ describe('UpdateRamenPriceUseCase', () => {
       }
 
       // Act & Assert
-      await expect(useCase.execute({ ramenPrice: 900 })).rejects.toThrow(
-        'Failed to update profile'
-      )
+      await expect(useCase.execute({ ramenPrice: 900 })).rejects.toThrow('Failed to update profile')
     })
   })
 })

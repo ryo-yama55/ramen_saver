@@ -78,7 +78,7 @@ describe('HomePage', () => {
       const user = userEvent.setup()
       mockSaveRamenResistanceUseCase.execute = vi.fn().mockImplementation(
         () =>
-          new Promise((resolve) =>
+          new Promise(resolve =>
             setTimeout(
               () =>
                 resolve({
@@ -161,13 +161,9 @@ describe('HomePage', () => {
 
   describe('異常系', () => {
     it('初期データ取得に失敗してもエラーにならない', async () => {
-      mockGetTotalSavingsUseCase.execute = vi
-        .fn()
-        .mockRejectedValue(new Error('Failed to fetch'))
+      mockGetTotalSavingsUseCase.execute = vi.fn().mockRejectedValue(new Error('Failed to fetch'))
 
-      mockGetMonthlySavingsUseCase.execute = vi
-        .fn()
-        .mockRejectedValue(new Error('Failed to fetch'))
+      mockGetMonthlySavingsUseCase.execute = vi.fn().mockRejectedValue(new Error('Failed to fetch'))
 
       render(
         <HomePage
