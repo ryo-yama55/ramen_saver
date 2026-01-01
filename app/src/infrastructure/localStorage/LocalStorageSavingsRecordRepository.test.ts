@@ -121,11 +121,15 @@ describe('LocalStorageSavingsRecordRepository', () => {
     })
 
     it('limitとoffsetでページネーションできる', async () => {
-      // Arrange: 同じミリ秒内に作成されるため、作成順が保持される
+      // Arrange: 時刻の違いを保証するため、1msずつ遅延させる
       await repository.create({ amount: 100 })
+      await new Promise(resolve => setTimeout(resolve, 1))
       await repository.create({ amount: 200 })
+      await new Promise(resolve => setTimeout(resolve, 1))
       await repository.create({ amount: 300 })
+      await new Promise(resolve => setTimeout(resolve, 1))
       await repository.create({ amount: 400 })
+      await new Promise(resolve => setTimeout(resolve, 1))
       await repository.create({ amount: 500 })
 
       // Act
@@ -133,15 +137,17 @@ describe('LocalStorageSavingsRecordRepository', () => {
 
       // Assert
       expect(records).toHaveLength(2)
-      // offset=1で2番目から2件取得（作成順: 200, 300）
-      expect(records[0].amount).toBe(200)
+      // offset=1で2番目から2件取得（新しい順: 400, 300）
+      expect(records[0].amount).toBe(400)
       expect(records[1].amount).toBe(300)
     })
 
     it('limitだけ指定した場合は先頭からlimit件取得される', async () => {
-      // Arrange
+      // Arrange: 時刻の違いを保証するため、1msずつ遅延させる
       await repository.create({ amount: 100 })
+      await new Promise(resolve => setTimeout(resolve, 1))
       await repository.create({ amount: 200 })
+      await new Promise(resolve => setTimeout(resolve, 1))
       await repository.create({ amount: 300 })
 
       // Act
@@ -149,15 +155,17 @@ describe('LocalStorageSavingsRecordRepository', () => {
 
       // Assert
       expect(records).toHaveLength(2)
-      // 先頭から2件（作成順: 100, 200）
-      expect(records[0].amount).toBe(100)
+      // 先頭から2件（新しい順: 300, 200）
+      expect(records[0].amount).toBe(300)
       expect(records[1].amount).toBe(200)
     })
 
     it('offsetだけ指定した場合はoffset以降の全件が取得される', async () => {
-      // Arrange
+      // Arrange: 時刻の違いを保証するため、1msずつ遅延させる
       await repository.create({ amount: 100 })
+      await new Promise(resolve => setTimeout(resolve, 1))
       await repository.create({ amount: 200 })
+      await new Promise(resolve => setTimeout(resolve, 1))
       await repository.create({ amount: 300 })
 
       // Act
@@ -165,9 +173,9 @@ describe('LocalStorageSavingsRecordRepository', () => {
 
       // Assert
       expect(records).toHaveLength(2)
-      // offset=1で2番目以降（作成順: 200, 300）
+      // offset=1で2番目以降（新しい順: 200, 100）
       expect(records[0].amount).toBe(200)
-      expect(records[1].amount).toBe(300)
+      expect(records[1].amount).toBe(100)
     })
 
     it('削除済み記録は結果に含まれない', async () => {
