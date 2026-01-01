@@ -9,5 +9,5 @@ const config = {
     '@storybook/addon-onboarding',
   ],
   framework: '@storybook/react-vite',
-};
-export default config;
+}
+export default config

@@ -1,16 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { GetTotalSavingsUseCase } from '@/application/usecases/GetTotalSavingsUseCase'
+import type { GetMonthlySavingsUseCase } from '@/application/usecases/GetMonthlySavingsUseCase'
+import type { SaveRamenResistanceUseCase } from '@/application/usecases/SaveRamenResistanceUseCase'
 import { HomePage } from './HomePage'
 
 // Mock use cases
-const mockGetTotalSavingsUseCase = {
+const mockGetTotalSavingsUseCase: GetTotalSavingsUseCase = {
   execute: async () => 5000,
 }
 
-const mockGetMonthlySavingsUseCase = {
+const mockGetMonthlySavingsUseCase: GetMonthlySavingsUseCase = {
   execute: async () => 2000,
 }
 
-const mockSaveRamenResistanceUseCase = {
+const mockSaveRamenResistanceUseCase: SaveRamenResistanceUseCase = {
   execute: async () => ({
     id: 'test-id',
     amount: 800,
@@ -33,9 +36,9 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    getTotalSavingsUseCase: mockGetTotalSavingsUseCase as any,
-    getMonthlySavingsUseCase: mockGetMonthlySavingsUseCase as any,
-    saveRamenResistanceUseCase: mockSaveRamenResistanceUseCase as any,
+    getTotalSavingsUseCase: mockGetTotalSavingsUseCase,
+    getMonthlySavingsUseCase: mockGetMonthlySavingsUseCase,
+    saveRamenResistanceUseCase: mockSaveRamenResistanceUseCase,
   },
 }
 
@@ -43,11 +46,11 @@ export const NoSavings: Story = {
   args: {
     getTotalSavingsUseCase: {
       execute: async () => 0,
-    } as any,
+    },
     getMonthlySavingsUseCase: {
       execute: async () => 0,
-    } as any,
-    saveRamenResistanceUseCase: mockSaveRamenResistanceUseCase as any,
+    },
+    saveRamenResistanceUseCase: mockSaveRamenResistanceUseCase,
   },
 }
 
@@ -55,10 +58,10 @@ export const HighSavings: Story = {
   args: {
     getTotalSavingsUseCase: {
       execute: async () => 123456,
-    } as any,
+    },
     getMonthlySavingsUseCase: {
       execute: async () => 45678,
-    } as any,
-    saveRamenResistanceUseCase: mockSaveRamenResistanceUseCase as any,
+    },
+    saveRamenResistanceUseCase: mockSaveRamenResistanceUseCase,
   },
 }

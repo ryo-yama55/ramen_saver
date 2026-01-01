@@ -14,7 +14,7 @@ describe('OnboardingFlow', () => {
           createdAt: new Date(),
           updatedAt: new Date(),
         }),
-      } as any
+      }
 
       render(
         <OnboardingFlow
@@ -36,7 +36,7 @@ describe('OnboardingFlow', () => {
           createdAt: new Date(),
           updatedAt: new Date(),
         }),
-      } as any
+      }
 
       render(
         <OnboardingFlow
@@ -57,7 +57,7 @@ describe('OnboardingFlow', () => {
       const user = userEvent.setup()
       const mockInitializeUseCase: InitializeUserProfileUseCase = {
         execute: vi.fn().mockImplementation(() => {
-          return new Promise((resolve) => {
+          return new Promise(resolve => {
             setTimeout(() => {
               resolve({
                 id: 'test-id',
@@ -68,7 +68,7 @@ describe('OnboardingFlow', () => {
             }, 100)
           })
         }),
-      } as any
+      }
 
       render(
         <OnboardingFlow
@@ -105,7 +105,7 @@ describe('OnboardingFlow', () => {
           createdAt: new Date(),
           updatedAt: new Date(),
         }),
-      } as any
+      }
 
       render(
         <OnboardingFlow
@@ -145,7 +145,7 @@ describe('OnboardingFlow', () => {
       const user = userEvent.setup()
       const mockInitializeUseCase: InitializeUserProfileUseCase = {
         execute: vi.fn().mockRejectedValue(new Error('保存失敗')),
-      } as any
+      }
 
       render(
         <OnboardingFlow
@@ -193,7 +193,7 @@ describe('OnboardingFlow', () => {
             updatedAt: new Date(),
           })
         }),
-      } as any
+      }
       const mockOnComplete = vi.fn()
 
       render(

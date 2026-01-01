@@ -1,4 +1,4 @@
-import '../src/index.css';
+import '../src/index.css'
 
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
@@ -17,6 +17,6 @@ const preview = {
       test: 'todo',
     },
   },
-};
+}
 
-export default preview;
+export default preview

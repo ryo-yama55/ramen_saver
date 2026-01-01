@@ -1,8 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { InitializeUserProfileUseCase } from '@/application/usecases/InitializeUserProfileUseCase'
 import { OnboardingFlow } from './OnboardingFlow'
 
 // Mock InitializeUserProfileUseCase
-const mockInitializeUserProfileUseCase = {
+const mockInitializeUserProfileUseCase: InitializeUserProfileUseCase = {
   execute: async () => ({
     id: 'mock-id',
     ramenPrice: 800,
@@ -19,7 +20,7 @@ const meta = {
   },
   tags: ['autodocs'],
   args: {
-    initializeUserProfileUseCase: mockInitializeUserProfileUseCase as any,
+    initializeUserProfileUseCase: mockInitializeUserProfileUseCase,
     onComplete: () => {},
   },
 } satisfies Meta<typeof OnboardingFlow>
