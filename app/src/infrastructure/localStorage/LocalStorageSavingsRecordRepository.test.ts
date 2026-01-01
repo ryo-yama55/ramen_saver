@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { LocalStorageSavingsRecordRepository } from './LocalStorageSavingsRecordRepository'
 import type { CreateSavingsRecordInput } from '@/domain/entities/SavingsRecord'
 
@@ -8,6 +8,11 @@ describe('LocalStorageSavingsRecordRepository', () => {
   beforeEach(() => {
     localStorage.clear()
     repository = new LocalStorageSavingsRecordRepository()
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
   })
 
   describe('create - 正常系', () => {
@@ -121,15 +126,15 @@ describe('LocalStorageSavingsRecordRepository', () => {
     })
 
     it('limitとoffsetでページネーションできる', async () => {
-      // Arrange: 時刻の違いを保証するため、1msずつ遅延させる
+      // Arrange: 時刻の違いを保証するため、fakeTimersで時刻を進める
       await repository.create({ amount: 100 })
-      await new Promise(resolve => setTimeout(resolve, 1))
+      vi.advanceTimersByTime(1000)
       await repository.create({ amount: 200 })
-      await new Promise(resolve => setTimeout(resolve, 1))
+      vi.advanceTimersByTime(1000)
       await repository.create({ amount: 300 })
-      await new Promise(resolve => setTimeout(resolve, 1))
+      vi.advanceTimersByTime(1000)
       await repository.create({ amount: 400 })
-      await new Promise(resolve => setTimeout(resolve, 1))
+      vi.advanceTimersByTime(1000)
       await repository.create({ amount: 500 })
 
       // Act
@@ -143,11 +148,11 @@ describe('LocalStorageSavingsRecordRepository', () => {
     })
 
     it('limitだけ指定した場合は先頭からlimit件取得される', async () => {
-      // Arrange: 時刻の違いを保証するため、1msずつ遅延させる
+      // Arrange: 時刻の違いを保証するため、fakeTimersで時刻を進める
       await repository.create({ amount: 100 })
-      await new Promise(resolve => setTimeout(resolve, 1))
+      vi.advanceTimersByTime(1000)
       await repository.create({ amount: 200 })
-      await new Promise(resolve => setTimeout(resolve, 1))
+      vi.advanceTimersByTime(1000)
       await repository.create({ amount: 300 })
 
       // Act
@@ -161,11 +166,11 @@ describe('LocalStorageSavingsRecordRepository', () => {
     })
 
     it('offsetだけ指定した場合はoffset以降の全件が取得される', async () => {
-      // Arrange: 時刻の違いを保証するため、1msずつ遅延させる
+      // Arrange: 時刻の違いを保証するため、fakeTimersで時刻を進める
       await repository.create({ amount: 100 })
-      await new Promise(resolve => setTimeout(resolve, 1))
+      vi.advanceTimersByTime(1000)
       await repository.create({ amount: 200 })
-      await new Promise(resolve => setTimeout(resolve, 1))
+      vi.advanceTimersByTime(1000)
       await repository.create({ amount: 300 })
 
       // Act
