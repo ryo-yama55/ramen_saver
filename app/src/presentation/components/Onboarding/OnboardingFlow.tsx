@@ -66,12 +66,7 @@ export const OnboardingFlow = ({
   }
 
   if (currentStep === 'ramen-price-setup') {
-    return (
-      <RamenPriceSetup
-        onComplete={handlePriceSetupComplete}
-        externalError={saveError}
-      />
-    )
+    return <RamenPriceSetup onComplete={handlePriceSetupComplete} externalError={saveError} />
   }
 
   return null

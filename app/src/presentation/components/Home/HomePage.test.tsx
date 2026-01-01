@@ -13,12 +13,12 @@ describe('HomePage', () => {
 
   beforeEach(() => {
     mockGetTotalSavingsUseCase = {
-      execute: vi.fn().mockResolvedValue(5000),
-    } as any
+      execute: vi.fn<[], Promise<number>>().mockResolvedValue(5000),
+    }
 
     mockGetMonthlySavingsUseCase = {
-      execute: vi.fn().mockResolvedValue(2000),
-    } as any
+      execute: vi.fn<[], Promise<number>>().mockResolvedValue(2000),
+    }
 
     mockSaveRamenResistanceUseCase = {
       execute: vi.fn().mockResolvedValue({
@@ -27,7 +27,7 @@ describe('HomePage', () => {
         recordedAt: new Date(),
         isDeleted: false,
       }),
-    } as any
+    }
   })
 
   describe('正常系', () => {

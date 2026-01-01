@@ -22,7 +22,8 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
           <div className="text-6xl">🍜</div>
           <h1 className="text-4xl font-bold text-gray-800">ラーメン貯金</h1>
           <p className="text-lg text-gray-600">
-            ラーメンを我慢して<br />
+            ラーメンを我慢して
+            <br />
             貯金するWebアプリ
           </p>
         </div>

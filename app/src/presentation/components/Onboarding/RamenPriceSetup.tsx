@@ -75,11 +75,10 @@ export const RamenPriceSetup = ({
         {/* タイトル */}
         <div className="text-center space-y-4">
           <div className="text-6xl">🍜</div>
-          <h1 className="text-3xl font-bold text-gray-800">
-            ラーメン価格を設定
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-800">ラーメン価格を設定</h1>
           <p className="text-gray-600">
-            あなたがよく食べる<br />
+            あなたがよく食べる
+            <br />
             ラーメンの価格を教えてください
           </p>
         </div>
@@ -97,7 +96,7 @@ export const RamenPriceSetup = ({
                 id="price"
                 inputMode="numeric"
                 value={price}
-                onChange={(e) => handlePriceChange(e.target.value)}
+                onChange={e => handlePriceChange(e.target.value)}
                 aria-label="ラーメンの価格"
                 aria-invalid={!!displayError}
                 aria-describedby={displayError ? 'price-error' : undefined}
