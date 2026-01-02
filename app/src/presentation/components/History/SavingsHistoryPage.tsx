@@ -51,7 +51,7 @@ export function SavingsHistoryPage({ getSavingsHistoryUseCase }: SavingsHistoryP
       <div className="max-w-2xl mx-auto">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">貯金履歴</h1>
         <div className="space-y-3">
-          {records.map((record) => (
+          {records.map(record => (
             <div
               key={record.id}
               className="bg-white rounded-lg shadow-sm p-4 border border-gray-100 hover:shadow-md transition-shadow"

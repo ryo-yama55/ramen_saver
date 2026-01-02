@@ -72,7 +72,7 @@ export const ManyRecords: Story = {
         amount: 800 + Math.floor(Math.random() * 500),
         recordedAt: new Date(2025, 0, 20 - i, 10 + i, 30),
         isDeleted: false,
-      })),
+      }))
     ),
   },
 }
