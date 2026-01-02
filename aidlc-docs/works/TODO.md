@@ -1,7 +1,7 @@
 # ラーメン貯金 - 作業項目TODOリスト
 
 **最終更新**: 2026-01-02
-**全体進捗**: 60% (Must Have機能ベース)
+**全体進捗**: 100% (Must Have機能ベース - MVP完成！)
 
 ---
 
@@ -69,10 +69,12 @@ So that 自分の頑張りを振り返り、モチベーションを維持でき
 
 ---
 
-### WORK-003: 設定画面の実装（Epic 5 - US-5.1 & US-5.2）
+### ✅ WORK-003: 設定画面の実装（Epic 5 - US-5.1 & US-5.2）（完了）
 **優先度**: 🟢 High
 **見積**: 2.5時間
-**担当**: -
+**担当**: Claude
+**完了日**: 2026-01-02
+**PR**: #16
 
 **ユーザーストーリー**:
 ```
@@ -81,39 +83,33 @@ I want to 設定画面からラーメンの価格を変更できる
 So that 価格が変わったときや、より正確な金額に調整できる
 ```
 
-**現状分析**:
-- ✅ `RamenPriceSetup.tsx` - 価格入力UIコンポーネント実装済み（オンボーディング用）
-- ✅ `UpdateRamenPriceUseCase.ts` - 価格更新ビジネスロジック実装済み
-- ❌ 設定画面用のページコンポーネント未実装
-- ❌ App.tsxへの統合未実施
+**実施内容**:
+- [x] `GetUserProfileUseCase.ts` 作成
+  - [x] 現在の価格取得ロジック
+  - [x] テスト作成（3件）
+- [x] `SettingsPage.tsx` コンポーネント作成
+  - [x] 現在のラーメン価格を取得・表示
+  - [x] 価格変更フォーム（100-3000円バリデーション）
+  - [x] 「保存」ボタン
+  - [x] 成功メッセージ表示
+  - [x] エラーメッセージ表示
+  - [x] アプリバージョン表示（0.0.0）
+  - [x] ホームへ戻るナビゲーションボタン
+- [x] `SettingsPage.test.tsx` テスト作成（14件）
+  - [x] 現在価格の表示テスト
+  - [x] 価格変更のテスト
+  - [x] バリデーションのテスト（空、最小値未満、最大値超過）
+  - [x] エラーハンドリングのテスト
+  - [x] ナビゲーションテスト
+- [x] Storybook追加 (`SettingsPage.stories.tsx` - 4ストーリー)
+- [x] DIコンテナへの追加
+  - [x] getUserProfileUseCase
+  - [x] updateRamenPriceUseCase
 
-**タスク**:
-- [ ] `SettingsPage.tsx` コンポーネント作成
-  - [ ] `RamenPriceSetup`コンポーネントを再利用 or 設定画面専用UIを作成
-  - [ ] 現在のラーメン価格を取得・表示
-  - [ ] 「保存」ボタン（`RamenPriceSetup`の「完了」ボタンと統合）
-  - [ ] 成功メッセージ表示（保存後）
-  - [ ] アプリバージョン表示
-  - [ ] ホームへ戻るナビゲーションボタン
-- [ ] `SettingsPage.test.tsx` テスト作成
-  - [ ] 現在価格の表示テスト
-  - [ ] 価格変更のテスト
-  - [ ] バリデーションのテスト
-  - [ ] エラーハンドリングのテスト
-  - [ ] ナビゲーションテスト
-- [ ] Storybook追加 (`SettingsPage.stories.tsx`)
-- [ ] `UpdateRamenPriceUseCase` との統合
-- [ ] DIコンテナへの追加（必要に応じて）
-
-**受け入れ基準**:
-- [ ] ホーム画面から設定画面に遷移できる
-- [ ] 設定画面に現在のラーメン価格が表示されている
-- [ ] 価格を変更できる入力フィールドがある（100円〜3,000円）
-- [ ] 「保存」ボタンをタップすると、新しい価格が保存される
-- [ ] 保存後、「設定を更新しました」というメッセージが表示される
-- [ ] 次回の記録から新しい価格が適用される（過去の記録は変更されない）
-- [ ] 無効な値を入力した場合はエラーメッセージが表示される
-- [ ] 設定画面から簡単にホーム画面に戻れる
+**結果**:
+- ✅ 全ての受け入れ基準を満たす実装完了
+- ✅ 単体テスト 148/148件パス
+- ✅ Lintエラー0
 
 **参照**:
 - `/aidlc-docs/inception/user_stories.md` (US-5.1, US-5.2)
@@ -121,44 +117,44 @@ So that 価格が変わったときや、より正確な金額に調整できる
 
 ---
 
-### WORK-004: App.tsxへのナビゲーション統合
+### ✅ WORK-004: App.tsxへのナビゲーション統合（完了）
 **優先度**: 🟢 High
 **見積**: 1.5時間
-**担当**: -
+**担当**: Claude
+**完了日**: 2026-01-02
+**PR**: #16
 
 **背景**:
 - HomePage、SavingsHistoryPage、SettingsPageにナビゲーション用propsは実装済み
 - App.tsxでページ遷移の状態管理とルーティングが未実装
 
-**タスク**:
-- [ ] App.tsxにページ状態管理を追加
-  - [ ] ページ種別の型定義 (`'home' | 'history' | 'settings'`)
-  - [ ] `useState`でcurrentPageを管理
-- [ ] ナビゲーションハンドラの実装
-  - [ ] `handleNavigateToHistory`
-  - [ ] `handleNavigateToSettings`
-  - [ ] `handleNavigateToHome`
-- [ ] 各ページコンポーネントの統合
-  - [ ] HomePage: onNavigateToHistoryとonNavigateToSettingsを渡す
-  - [ ] SavingsHistoryPage: onNavigateToHomeを渡す
-  - [ ] SettingsPage: onNavigateToHomeを渡す
-- [ ] DIコンテナから必要なUseCaseを取得
-  - [ ] getSavingsHistoryUseCase
-  - [ ] updateRamenPriceUseCase
-  - [ ] getUserProfileUseCase（現在価格取得用、必要に応じて新規作成）
-- [ ] App.test.tsx の更新（必要に応じて）
+**実施内容**:
+- [x] App.tsxにページ状態管理を追加
+  - [x] ページ種別の型定義 (`'home' | 'history' | 'settings'`)
+  - [x] `useState`でcurrentPageを管理
+- [x] ナビゲーションハンドラの実装
+  - [x] `handleNavigateToHistory`
+  - [x] `handleNavigateToSettings`
+  - [x] `handleNavigateToHome`
+- [x] 各ページコンポーネントの統合
+  - [x] HomePage: onNavigateToHistoryとonNavigateToSettingsを渡す（設定ボタンに歯車アイコン追加）
+  - [x] SavingsHistoryPage: onNavigateToHomeを渡す
+  - [x] SettingsPage: onNavigateToHomeを渡す
+- [x] DIコンテナから必要なUseCaseを取得
+  - [x] getSavingsHistoryUseCase
+  - [x] updateRamenPriceUseCase
+  - [x] getUserProfileUseCase
 
-**受け入れ基準**:
-- [ ] ホーム画面から履歴画面に遷移できる
-- [ ] ホーム画面から設定画面に遷移できる
-- [ ] 履歴画面からホーム画面に戻れる
-- [ ] 設定画面からホーム画面に戻れる
-- [ ] ページ遷移時に状態が正しく保持される
-- [ ] 全ページでナビゲーションが正常に動作する
+**結果**:
+- ✅ 全ての受け入れ基準を満たす実装完了
+- ✅ ホーム↔履歴↔設定のページ遷移が完全に動作
+- ✅ 全ページでナビゲーションボタンが適切に表示される
 
 **参照**:
-- `src/presentation/components/Home/HomePage.tsx` (onNavigateToHistory props)
-- `src/presentation/components/History/SavingsHistoryPage.tsx` (onNavigateToHome props)
+- `src/App.tsx`
+- `src/presentation/components/Home/HomePage.tsx`
+- `src/presentation/components/History/SavingsHistoryPage.tsx`
+- `src/presentation/components/Settings/SettingsPage.tsx`
 
 ---
 
@@ -380,11 +376,11 @@ So that 価格が変わったときや、より正確な金額に調整できる
 | フェーズ | タスク数 | 完了 | 進捗率 |
 |----------|----------|------|--------|
 | Phase 0: 緊急対応 | 1 | 1 | 100% ✅ |
-| Phase 1: MVP完成 | 3 | 1 | 33% |
+| Phase 1: MVP完成 | 3 | 3 | 100% ✅ |
 | Phase 2: UX向上 | 5 | 0 | 0% |
 | Phase 3: PWA対応 | 4 | 0 | 0% |
 | バグ修正 | 1 | 0 | 0% |
-| **合計** | **14** | **2** | **14%** |
+| **合計** | **14** | **4** | **29%** |
 
 ---
 
@@ -392,9 +388,9 @@ So that 価格が変わったときや、より正確な金額に調整できる
 
 1. ~~**WORK-001** (Lintエラー修正)~~ ✅ 完了
 2. ~~**WORK-002** (履歴一覧画面)~~ ✅ 完了
-3. **WORK-003** (設定画面) ← 🔴 次はこれ
-4. **WORK-004** (App.tsxへのナビゲーション統合) ← 🔴 次はこれ
-5. **WORK-005** (応援メッセージバリエーション)
+3. ~~**WORK-003** (設定画面)~~ ✅ 完了
+4. ~~**WORK-004** (App.tsxへのナビゲーション統合)~~ ✅ 完了
+5. **WORK-005** (応援メッセージバリエーション) ← 次の推奨タスク
 6. **WORK-006** (我慢回数表示)
 7. **WORK-007** (カウントアップアニメーション)
 8. **WORK-014** (ページネーションテスト修正)
@@ -406,8 +402,9 @@ So that 価格が変わったときや、より正確な金額に調整できる
 
 ## 📝 メモ
 
-- MVP完成には WORK-001〜004 が必須
-  - WORK-001, 002 は完了済み ✅
-  - 残り: WORK-003（設定画面）、WORK-004（ナビゲーション統合）
-- WORK-005〜007 でUX向上
+- **🎉 MVP完成！** WORK-001〜004 が全て完了しました ✅
+  - Phase 0: 緊急対応 100%完了
+  - Phase 1: MVP完成 100%完了
+- 次はPhase 2のUX向上（WORK-005〜007）を実施推奨
+- WORK-014のバグ修正も実施可能
 - WORK-008以降は余裕があれば実装

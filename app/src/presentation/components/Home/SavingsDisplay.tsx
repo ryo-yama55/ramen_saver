@@ -4,6 +4,7 @@
  * 総貯金額と今月の貯金額を表示する
  */
 
+import React from 'react'
 import { formatCurrency } from '@/presentation/utils/currency'
 
 export type SavingsDisplayProps = {

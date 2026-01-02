@@ -5,6 +5,8 @@
  * アプリの目的と使い方を説明する
  */
 
+import React from 'react'
+
 export type WelcomeScreenProps = {
   /** 「始める」ボタンがクリックされたときのコールバック */
   onStart: () => void

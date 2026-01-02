@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import type { GetSavingsHistoryUseCase } from '@/application/usecases/GetSavingsHistoryUseCase'
 import type { SavingsRecord } from '@/domain/entities/SavingsRecord'
 import { formatCurrency } from '@/presentation/utils/currency'

@@ -4,7 +4,7 @@
  * ラーメン価格の変更やアプリバージョンの表示を行う
  */
 
-import { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import type { GetUserProfileUseCase } from '@/application/usecases/GetUserProfileUseCase'
 import type { UpdateRamenPriceUseCase } from '@/application/usecases/UpdateRamenPriceUseCase'
 import { DEFAULT_RAMEN_PRICE } from '@/domain/entities/UserProfile'

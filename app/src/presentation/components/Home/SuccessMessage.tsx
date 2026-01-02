@@ -4,6 +4,7 @@
  * ラーメン我慢記録が保存された後に表示されるメッセージ
  */
 
+import React from 'react'
 import { formatCurrency } from '@/presentation/utils/currency'
 
 export type SuccessMessageProps = {

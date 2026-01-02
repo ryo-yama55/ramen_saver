@@ -4,7 +4,7 @@
  * ラーメン我慢アプリのメインページ
  */
 
-import { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import type { GetTotalSavingsUseCase } from '@/application/usecases/GetTotalSavingsUseCase'
 import type { GetMonthlySavingsUseCase } from '@/application/usecases/GetMonthlySavingsUseCase'
 import type { SaveRamenResistanceUseCase } from '@/application/usecases/SaveRamenResistanceUseCase'

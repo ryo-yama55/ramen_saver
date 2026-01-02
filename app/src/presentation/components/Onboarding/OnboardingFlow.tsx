@@ -4,7 +4,7 @@
  * ウェルカム画面とラーメン価格設定のフローを管理する
  */
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import type { InitializeUserProfileUseCase } from '@/application/usecases/InitializeUserProfileUseCase'
 import { WelcomeScreen } from './WelcomeScreen'
 import { RamenPriceSetup } from './RamenPriceSetup'

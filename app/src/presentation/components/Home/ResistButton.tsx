@@ -4,6 +4,8 @@
  * ユーザーがラーメンを我慢したときにクリックするボタン
  */
 
+import React from 'react'
+
 export type ResistButtonProps = {
   /** クリックハンドラ */
   onClick: () => void

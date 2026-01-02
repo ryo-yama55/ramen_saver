@@ -4,7 +4,7 @@
  * 初回セットアップ時にラーメン価格を設定する画面
  */
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { DEFAULT_RAMEN_PRICE } from '@/domain/entities/UserProfile'
 
 /** 価格の最小値 */
