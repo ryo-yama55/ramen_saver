@@ -1,16 +1,24 @@
 import { useState, useEffect } from 'react'
 import { HomePage } from './presentation/components/Home/HomePage'
+import { SavingsHistoryPage } from './presentation/components/History/SavingsHistoryPage'
+import { SettingsPage } from './presentation/components/Settings/SettingsPage'
 import { OnboardingFlow } from './presentation/components/Onboarding/OnboardingFlow'
 import {
   getTotalSavingsUseCase,
   getMonthlySavingsUseCase,
   saveRamenResistanceUseCase,
+  getSavingsHistoryUseCase,
+  getUserProfileUseCase,
+  updateRamenPriceUseCase,
   userProfileRepository,
   initializeUserProfileUseCase,
 } from './application/di/container'
 
+type Page = 'home' | 'history' | 'settings'
+
 function App() {
   const [isOnboardingComplete, setIsOnboardingComplete] = useState<boolean | null>(null)
+  const [currentPage, setCurrentPage] = useState<Page>('home')
 
   useEffect(() => {
     const checkProfile = async () => {
@@ -48,14 +56,44 @@ function App() {
     )
   }
 
-  // オンボーディング完了後はホーム画面を表示
-  return (
-    <HomePage
-      getTotalSavingsUseCase={getTotalSavingsUseCase}
-      getMonthlySavingsUseCase={getMonthlySavingsUseCase}
-      saveRamenResistanceUseCase={saveRamenResistanceUseCase}
-    />
-  )
+  // ナビゲーションハンドラ
+  const handleNavigateToHome = () => setCurrentPage('home')
+  const handleNavigateToHistory = () => setCurrentPage('history')
+  const handleNavigateToSettings = () => setCurrentPage('settings')
+
+  // オンボーディング完了後はページ表示
+  if (currentPage === 'home') {
+    return (
+      <HomePage
+        getTotalSavingsUseCase={getTotalSavingsUseCase}
+        getMonthlySavingsUseCase={getMonthlySavingsUseCase}
+        saveRamenResistanceUseCase={saveRamenResistanceUseCase}
+        onNavigateToHistory={handleNavigateToHistory}
+        onNavigateToSettings={handleNavigateToSettings}
+      />
+    )
+  }
+
+  if (currentPage === 'history') {
+    return (
+      <SavingsHistoryPage
+        getSavingsHistoryUseCase={getSavingsHistoryUseCase}
+        onNavigateToHome={handleNavigateToHome}
+      />
+    )
+  }
+
+  if (currentPage === 'settings') {
+    return (
+      <SettingsPage
+        getUserProfileUseCase={getUserProfileUseCase}
+        updateRamenPriceUseCase={updateRamenPriceUseCase}
+        onNavigateToHome={handleNavigateToHome}
+      />
+    )
+  }
+
+  return null
 }
 
 export default App
