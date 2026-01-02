@@ -48,12 +48,7 @@ export function SavingsHistoryPage({
                 className="text-gray-600 hover:text-gray-800 transition-colors"
                 aria-label="戻る"
               >
-                <svg
-                  className="w-8 h-8"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -87,12 +82,7 @@ export function SavingsHistoryPage({
               className="text-gray-600 hover:text-gray-800 transition-colors"
               aria-label="戻る"
             >
-              <svg
-                className="w-8 h-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
