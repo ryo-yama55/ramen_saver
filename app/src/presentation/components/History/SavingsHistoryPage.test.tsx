@@ -1,15 +1,19 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
+import { userEvent } from '@testing-library/user-event'
 import { SavingsHistoryPage } from './SavingsHistoryPage'
 import type { GetSavingsHistoryUseCase } from '@/application/usecases/GetSavingsHistoryUseCase'
 
 describe('SavingsHistoryPage', () => {
   let mockGetSavingsHistoryUseCase: GetSavingsHistoryUseCase
+  let mockOnNavigateToHome: ReturnType<typeof vi.fn>
 
   beforeEach(() => {
     mockGetSavingsHistoryUseCase = {
       execute: vi.fn().mockResolvedValue([]),
     } as unknown as GetSavingsHistoryUseCase
+
+    mockOnNavigateToHome = vi.fn()
   })
 
   describe('正常系', () => {
@@ -78,6 +82,40 @@ describe('SavingsHistoryPage', () => {
         expect(dates[1]).toHaveTextContent('2025年1月14日')
         expect(dates[2]).toHaveTextContent('2025年1月13日')
       })
+    })
+  })
+
+  describe('ナビゲーション', () => {
+    it('戻るボタンが表示される', async () => {
+      render(
+        <SavingsHistoryPage
+          getSavingsHistoryUseCase={mockGetSavingsHistoryUseCase}
+          onNavigateToHome={mockOnNavigateToHome}
+        />
+      )
+
+      await waitFor(() => {
+        expect(screen.getByRole('button', { name: /戻る/ })).toBeInTheDocument()
+      })
+    })
+
+    it('戻るボタンをクリックするとonNavigateToHomeが呼ばれる', async () => {
+      const user = userEvent.setup()
+      render(
+        <SavingsHistoryPage
+          getSavingsHistoryUseCase={mockGetSavingsHistoryUseCase}
+          onNavigateToHome={mockOnNavigateToHome}
+        />
+      )
+
+      await waitFor(() => {
+        expect(screen.getByRole('button', { name: /戻る/ })).toBeInTheDocument()
+      })
+
+      const button = screen.getByRole('button', { name: /戻る/ })
+      await user.click(button)
+
+      expect(mockOnNavigateToHome).toHaveBeenCalledTimes(1)
     })
   })
 })

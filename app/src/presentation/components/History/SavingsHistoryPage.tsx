@@ -6,9 +6,13 @@ import { formatDate, formatTime } from '@/presentation/utils/date'
 
 type SavingsHistoryPageProps = {
   getSavingsHistoryUseCase: GetSavingsHistoryUseCase
+  onNavigateToHome?: () => void
 }
 
-export function SavingsHistoryPage({ getSavingsHistoryUseCase }: SavingsHistoryPageProps) {
+export function SavingsHistoryPage({
+  getSavingsHistoryUseCase,
+  onNavigateToHome,
+}: SavingsHistoryPageProps) {
   const [records, setRecords] = useState<SavingsRecord[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -36,7 +40,28 @@ export function SavingsHistoryPage({ getSavingsHistoryUseCase }: SavingsHistoryP
     return (
       <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white p-6">
         <div className="max-w-2xl mx-auto">
-          <h1 className="text-2xl font-bold text-gray-800 mb-6">貯金履歴</h1>
+          <div className="flex justify-between items-center mb-6">
+            {onNavigateToHome && (
+              <button
+                type="button"
+                onClick={onNavigateToHome}
+                className="text-gray-600 hover:text-gray-800 transition-colors"
+                aria-label="戻る"
+              >
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+            )}
+            {!onNavigateToHome && <div className="w-8" />}
+            <h1 className="text-2xl font-bold text-gray-800">貯金履歴</h1>
+            <div className="w-8" />
+          </div>
           <div className="text-center py-12">
             <p className="text-gray-500">まだ記録がありません</p>
             <p className="text-sm text-gray-400 mt-2">ラーメンを我慢したら記録が表示されます</p>
@@ -49,7 +74,28 @@ export function SavingsHistoryPage({ getSavingsHistoryUseCase }: SavingsHistoryP
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white p-6">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">貯金履歴</h1>
+        <div className="flex justify-between items-center mb-6">
+          {onNavigateToHome && (
+            <button
+              type="button"
+              onClick={onNavigateToHome}
+              className="text-gray-600 hover:text-gray-800 transition-colors"
+              aria-label="戻る"
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+          )}
+          {!onNavigateToHome && <div className="w-8" />}
+          <h1 className="text-2xl font-bold text-gray-800">貯金履歴</h1>
+          <div className="w-8" />
+        </div>
         <div className="space-y-3">
           {records.map(record => (
             <div
