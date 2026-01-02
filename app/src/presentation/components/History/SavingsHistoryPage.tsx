@@ -43,6 +43,7 @@ export function SavingsHistoryPage({
           <div className="flex justify-between items-center mb-6">
             {onNavigateToHome && (
               <button
+                type="button"
                 onClick={onNavigateToHome}
                 className="text-gray-600 hover:text-gray-800 transition-colors"
                 aria-label="戻る"
@@ -81,6 +82,7 @@ export function SavingsHistoryPage({
         <div className="flex justify-between items-center mb-6">
           {onNavigateToHome && (
             <button
+              type="button"
               onClick={onNavigateToHome}
               className="text-gray-600 hover:text-gray-800 transition-colors"
               aria-label="戻る"

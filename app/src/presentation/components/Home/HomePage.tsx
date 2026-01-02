@@ -106,6 +106,7 @@ export const HomePage = ({
             </div>
             {onNavigateToHistory && (
               <button
+                type="button"
                 onClick={onNavigateToHistory}
                 className="text-gray-600 hover:text-gray-800 transition-colors"
                 aria-label="履歴を見る"
