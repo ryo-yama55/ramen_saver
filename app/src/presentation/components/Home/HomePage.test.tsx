@@ -10,6 +10,7 @@ describe('HomePage', () => {
   let mockGetTotalSavingsUseCase: GetTotalSavingsUseCase
   let mockGetMonthlySavingsUseCase: GetMonthlySavingsUseCase
   let mockSaveRamenResistanceUseCase: SaveRamenResistanceUseCase
+  let mockOnNavigateToHistory: ReturnType<typeof vi.fn>
 
   beforeEach(() => {
     mockGetTotalSavingsUseCase = {
@@ -28,6 +29,8 @@ describe('HomePage', () => {
         isDeleted: false,
       }),
     }
+
+    mockOnNavigateToHistory = vi.fn()
   })
 
   describe('正常系', () => {
@@ -201,6 +204,38 @@ describe('HomePage', () => {
       })
 
       expect(screen.queryByText('素晴らしい!')).not.toBeInTheDocument()
+    })
+  })
+
+  describe('ナビゲーション', () => {
+    it('履歴を見るボタンが表示される', () => {
+      render(
+        <HomePage
+          getTotalSavingsUseCase={mockGetTotalSavingsUseCase}
+          getMonthlySavingsUseCase={mockGetMonthlySavingsUseCase}
+          saveRamenResistanceUseCase={mockSaveRamenResistanceUseCase}
+          onNavigateToHistory={mockOnNavigateToHistory}
+        />
+      )
+
+      expect(screen.getByRole('button', { name: /履歴/ })).toBeInTheDocument()
+    })
+
+    it('履歴を見るボタンをクリックするとonNavigateToHistoryが呼ばれる', async () => {
+      const user = userEvent.setup()
+      render(
+        <HomePage
+          getTotalSavingsUseCase={mockGetTotalSavingsUseCase}
+          getMonthlySavingsUseCase={mockGetMonthlySavingsUseCase}
+          saveRamenResistanceUseCase={mockSaveRamenResistanceUseCase}
+          onNavigateToHistory={mockOnNavigateToHistory}
+        />
+      )
+
+      const button = screen.getByRole('button', { name: /履歴/ })
+      await user.click(button)
+
+      expect(mockOnNavigateToHistory).toHaveBeenCalledTimes(1)
     })
   })
 })

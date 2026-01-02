@@ -76,3 +76,23 @@ export const ManyRecords: Story = {
     ),
   },
 }
+
+export const WithNavigation: Story = {
+  args: {
+    getSavingsHistoryUseCase: createMockUseCase([
+      {
+        id: '1',
+        amount: 800,
+        recordedAt: new Date('2025-01-15T19:30:00'),
+        isDeleted: false,
+      },
+      {
+        id: '2',
+        amount: 900,
+        recordedAt: new Date('2025-01-14T12:15:00'),
+        isDeleted: false,
+      },
+    ]),
+    onNavigateToHome: () => alert('ホームに戻ります'),
+  },
+}
