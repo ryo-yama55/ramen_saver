@@ -13,6 +13,9 @@ import { GetTotalSavingsUseCase } from '@/application/usecases/GetTotalSavingsUs
 import { GetMonthlySavingsUseCase } from '@/application/usecases/GetMonthlySavingsUseCase'
 import { SaveRamenResistanceUseCase } from '@/application/usecases/SaveRamenResistanceUseCase'
 import { InitializeUserProfileUseCase } from '@/application/usecases/InitializeUserProfileUseCase'
+import { GetSavingsHistoryUseCase } from '@/application/usecases/GetSavingsHistoryUseCase'
+import { GetUserProfileUseCase } from '@/application/usecases/GetUserProfileUseCase'
+import { UpdateRamenPriceUseCase } from '@/application/usecases/UpdateRamenPriceUseCase'
 
 // ============================================================
 // Phase 1-2: LocalStorage実装を使用
@@ -37,6 +40,12 @@ export const saveRamenResistanceUseCase = new SaveRamenResistanceUseCase(
 )
 
 export const initializeUserProfileUseCase = new InitializeUserProfileUseCase(userProfileRepository)
+
+export const getSavingsHistoryUseCase = new GetSavingsHistoryUseCase(savingsRecordRepository)
+
+export const getUserProfileUseCase = new GetUserProfileUseCase(userProfileRepository)
+
+export const updateRamenPriceUseCase = new UpdateRamenPriceUseCase(userProfileRepository)
 
 // ============================================================
 // Phase 3: Supabase実装に切り替える場合
