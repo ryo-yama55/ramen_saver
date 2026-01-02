@@ -86,7 +86,7 @@ describe('SavingsHistoryPage', () => {
   })
 
   describe('ナビゲーション', () => {
-    it('戻るボタンが表示される', () => {
+    it('戻るボタンが表示される', async () => {
       render(
         <SavingsHistoryPage
           getSavingsHistoryUseCase={mockGetSavingsHistoryUseCase}
@@ -94,7 +94,9 @@ describe('SavingsHistoryPage', () => {
         />
       )
 
-      expect(screen.getByRole('button', { name: /戻る/ })).toBeInTheDocument()
+      await waitFor(() => {
+        expect(screen.getByRole('button', { name: /戻る/ })).toBeInTheDocument()
+      })
     })
 
     it('戻るボタンをクリックするとonNavigateToHomeが呼ばれる', async () => {
@@ -105,6 +107,10 @@ describe('SavingsHistoryPage', () => {
           onNavigateToHome={mockOnNavigateToHome}
         />
       )
+
+      await waitFor(() => {
+        expect(screen.getByRole('button', { name: /戻る/ })).toBeInTheDocument()
+      })
 
       const button = screen.getByRole('button', { name: /戻る/ })
       await user.click(button)

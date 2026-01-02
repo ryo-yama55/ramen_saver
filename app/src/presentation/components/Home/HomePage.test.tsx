@@ -208,7 +208,7 @@ describe('HomePage', () => {
   })
 
   describe('ナビゲーション', () => {
-    it('履歴を見るボタンが表示される', () => {
+    it('履歴を見るボタンが表示される', async () => {
       render(
         <HomePage
           getTotalSavingsUseCase={mockGetTotalSavingsUseCase}
@@ -218,7 +218,9 @@ describe('HomePage', () => {
         />
       )
 
-      expect(screen.getByRole('button', { name: /履歴/ })).toBeInTheDocument()
+      await waitFor(() => {
+        expect(screen.getByRole('button', { name: /履歴/ })).toBeInTheDocument()
+      })
     })
 
     it('履歴を見るボタンをクリックするとonNavigateToHistoryが呼ばれる', async () => {
@@ -231,6 +233,10 @@ describe('HomePage', () => {
           onNavigateToHistory={mockOnNavigateToHistory}
         />
       )
+
+      await waitFor(() => {
+        expect(screen.getByRole('button', { name: /履歴/ })).toBeInTheDocument()
+      })
 
       const button = screen.getByRole('button', { name: /履歴/ })
       await user.click(button)
